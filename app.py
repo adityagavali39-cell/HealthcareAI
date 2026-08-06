@@ -82,7 +82,40 @@ app.secret_key = "smart_healthcare_secret_key"
 
 # ==========================================
 # Hugging Face ML Models
-#git rm --cached -r "new ml/models"
+# ==========================================
+
+
+REPO_ID = "aditya12g/healthcareaimodels"
+
+def load_model(filename):
+    print(f"Downloading {filename}...")
+
+    model_path = hf_hub_download(
+        repo_id=REPO_ID,
+        filename=filename
+    )
+
+    print(f"Downloaded: {model_path}")
+
+    model = joblib.load(model_path)
+
+    print(f"{filename} loaded successfully")
+
+    return model
+
+
+#       rf_model = load_model("random_forest.pkl")
+stack_model = load_model("stacking.pkl")
+# xgb_model = load_model("xgboost.pkl")
+
+feature_names = load_model("feature_names.pkl")
+disease_encoder = load_model("disease_encoder.pkl")
+gender_encoder = load_model("gender_encoder.pkl")
+bp_encoder = load_model("bp_encoder.pkl")
+chol_encoder = load_model("chol_encoder.pkl")
+
+NON_SYMPTOM_FEATURES = ["Age", "Gender", "BMI", "Blood_Pressure", "Cholesterol_Level"]
+
 
 def encode_gender(gender):
     """
