@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Verification</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: linear-gradient(135deg, #f5f7fb 0%, #eef2ff 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .box {
+        width: 100%;
+        max-width: 380px;
+        background: #ffffff;
+        padding: 40px 32px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(13, 110, 253, 0.12);
+        text-align: center;
+    }
+
+    .box h2 {
+        margin: 0 0 8px;
+        color: #1a1f36;
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    .box p {
+        margin: 0 0 24px;
+        color: #6b7280;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    form {
+        text-align: left;
+    }
+
+    label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 6px;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px 14px;
+        margin-bottom: 22px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 18px;
+        letter-spacing: 6px;
+        text-align: center;
+        color: #1a1f36;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+    }
+
+    input::placeholder {
+        letter-spacing: normal;
+        font-size: 14px;
+        color: #9ca3af;
+    }
+
+    button {
+        width: 100%;
+        padding: 13px;
+        background: #0d6efd;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.1s;
+    }
+
+    button:hover {
+        background: #0b5ed7;
+    }
+
+    button:active {
+        transform: scale(0.98);
+    }
+
+    a {
+        display: block;
+        text-align: center;
+        margin-top: 18px;
+        color: #0d6efd;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+    <h2>Email Verification</h2>
+    <p>Enter the OTP sent to your email.</p>
+
+    <form method="POST">
+        <label for="otp">OTP</label>
+        <input
+            type="text"
+            id="otp"
+            name="otp"
+            placeholder="Enter 6 Digit OTP"
+            maxlength="6"
+            inputmode="numeric"
+            required>
+
+        <button type="submit">Verify Email</button>
+    </form>
+
+    <a href="{{ url_for('register') }}">Resend OTP</a>
+</div>
+
+</body>
+</html>

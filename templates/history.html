@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <link rel="stylesheet"
+href="{{ url_for('static', filename='css/theme.css') }}">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Prediction History</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/history.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="theme-toggle">
+    <button id="theme-btn" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+</div>
+
+<div class="container">
+
+<h1>My Prediction History</h1>
+
+<table>
+
+<tr>
+
+<th>Date</th>
+
+<th>Disease</th>
+
+
+
+<th>Severity</th>
+
+<th>Doctor</th>
+
+</tr>
+
+{% for row in history %}
+
+<tr>
+
+<td>{{ row["prediction_date"] }}</td>
+
+<td>{{ row["disease"] }}</td>
+
+
+
+<td>{{ row["severity"] }}</td>
+
+<td>{{ row["doctor"] }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="/dashboard">
+
+<button>
+
+Back to Dashboard
+
+</button>
+
+</a>
+
+</div>
+<script src="{{ url_for('static', filename='js/theme.js') }}?v=3"></script>
+</body>
+
+</html>

@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* ==========================================
+   ROOT COLORS (LIGHT)
+========================================== */
+
+:root{
+    --accent-cyan:#0ea5e9;
+
+    --bg:linear-gradient(135deg,#eef6ff,#d9ecff);
+    --page-text:#333333;
+
+    --card:#ffffff;
+    --card-border:#dbe5f1;
+    --card-shadow:0 10px 20px rgba(0,0,0,.08);
+    --card-icon:#0ea5e9;
+
+    --heading:#111111;
+    --text-light:#5c6b7f;
+
+    --sidebar-bg:#ffffff;
+    --sidebar-text:#334155;
+    --sidebar-border:#e2e8f0;
+    --sidebar-icon:#0ea5e9;
+    --sidebar-shadow:0 10px 25px rgba(15,23,42,.06);
+
+    --recent-bg:#ffffff;
+    --recent-border:#e2e8f0;
+    --recent-shadow:0 10px 20px rgba(0,0,0,.06);
+    --recent-heading:#111111;
+
+    --table-text:#334155;
+    --table-border:#e5eaf1;
+    --table-head:#64748b;
+}
+
+/* ==========================================
+   DARK MODE
+========================== */
+
+body.dark-mode{
+    --bg:linear-gradient(135deg,#081320,#13233d,#0e2b4d);
+    --page-text:#dbe6f5;
+
+    --card:rgba(20,34,58,.92);
+    --card-border:rgba(255,255,255,.06);
+    --card-shadow:0 10px 20px rgba(0,0,0,.3);
+    --card-icon:#00d4ff;
+
+    --heading:#ffffff;
+    --text-light:#b6c7dc;
+
+    --sidebar-bg:linear-gradient(180deg,#0b2340,#081320);
+    --sidebar-text:#dbe6f5;
+    --sidebar-border:rgba(255,255,255,.06);
+    --sidebar-icon:#00d4ff;
+    --sidebar-shadow:none;
+
+    --recent-bg:rgba(20,34,58,.92);
+    --recent-border:rgba(255,255,255,.06);
+    --recent-shadow:0 10px 20px rgba(0,0,0,.3);
+    --recent-heading:#ffffff;
+
+    --table-text:#dbe6f5;
+    --table-border:rgba(255,255,255,.08);
+    --table-head:#9eb8d6;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+display:flex;
+min-height:100vh;
+background:var(--bg);
+color:var(--page-text);
+transition:background .35s ease,color .35s ease;
+}
+
+.sidebar{
+width:260px;
+height:100vh;
+background:var(--sidebar-bg);
+border-right:1px solid var(--sidebar-border);
+padding:30px;
+color:var(--sidebar-text);
+position:fixed;
+top:0;
+left:0;
+box-shadow:var(--sidebar-shadow);
+transition:background .35s,border-color .35s,color .35s;
+}
+
+.sidebar h2{
+margin-bottom:40px;
+color:var(--heading);
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar li{
+margin:22px 0;
+}
+
+.sidebar a{
+text-decoration:none;
+color:var(--sidebar-text);
+font-size:17px;
+transition:.25s;
+}
+
+.sidebar a:hover{
+color:var(--sidebar-icon);
+}
+
+.sidebar i{
+margin-right:10px;
+color:var(--sidebar-icon);
+}
+
+.main{
+margin-left:260px;
+padding:40px;
+width:100%;
+}
+
+.top h1{
+color:var(--heading);
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:25px;
+margin-top:35px;
+}
+
+.card{
+background:var(--card);
+border:1px solid var(--card-border);
+padding:30px;
+border-radius:15px;
+text-align:center;
+box-shadow:var(--card-shadow);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-6px);
+border-color:rgba(36,149,255,.45);
+}
+
+.card i{
+font-size:45px;
+color:var(--card-icon);
+margin-bottom:15px;
+}
+
+.card h2{
+font-size:34px;
+color:var(--heading);
+}
+
+.card p{
+margin-top:10px;
+color:var(--text-light);
+}
+
+/* NOTE: this section was previously force-hidden with
+   `display:none !important` — restored to visible since
+   it holds the action button(s). Remove the .actions rule
+   below (or re-add display:none) if hiding it was intentional. */
+.actions{
+margin:40px 0;
+}
+
+.btn{
+display:inline-block;
+background:linear-gradient(135deg,#00d4ff,#0066ff);
+padding:16px 30px;
+color:white;
+text-decoration:none;
+border-radius:10px;
+font-weight:600;
+transition:.3s;
+box-shadow:0 10px 25px rgba(0,150,255,.25);
+}
+
+.btn:hover{
+transform:translateY(-3px);
+box-shadow:0 14px 30px rgba(0,150,255,.4);
+}
+
+.recent{
+background:var(--recent-bg);
+border:1px solid var(--recent-border);
+padding:30px;
+border-radius:15px;
+box-shadow:var(--recent-shadow);
+transition:background .35s,border-color .35s;
+}
+
+.recent h2{
+margin-bottom:20px;
+color:var(--recent-heading);
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+color:var(--table-text);
+}
+
+th,td{
+padding:15px;
+text-align:left;
+border-bottom:1px solid var(--table-border);
+}
+
+th{
+color:var(--table-head);
+font-size:14px;
+text-transform:uppercase;
+letter-spacing:.04em;
+}
+
+/* ==========================
+   THEME TOGGLE BUTTON
+========================== */
+.theme-btn{
+position:fixed;
+top:30px;
+right:40px;
+
+width:55px;
+height:55px;
+
+border:none;
+border-radius:50%;
+
+background:linear-gradient(135deg,#00c6ff,#0072ff);
+color:#fff;
+
+font-size:26px;
+line-height:1;
+cursor:pointer;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+box-shadow:0 10px 25px rgba(0,0,0,.3);
+transition:.3s ease;
+
+z-index:9999;
+}
+
+.theme-btn:hover{
+transform:scale(1.08);
+}
+
+.theme-btn:active{
+transform:scale(.95);
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media(max-width:900px){
+    .sidebar{
+        width:100%;
+        height:auto;
+        position:relative;
+    }
+    .main{
+        margin-left:0;
+    }
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:600px){
+    .cards{
+        grid-template-columns:1fr;
+    }
+}

@@ -1,0 +1,287 @@
+/* ==========================
+   GLOBAL THEME
+========================== */
+
+:root{
+
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+
+    --success:#10b981;
+    --danger:#ef4444;
+
+    --bg:#f4f8fc;
+    --card:#ffffff;
+
+    --text:#1e293b;
+    --text-light:#64748b;
+
+    --border:#dbe4ee;
+
+    --shadow:
+    0 10px 30px rgba(0,0,0,.08);
+
+    --radius:18px;
+
+    --transition:.35s;
+
+}
+
+/* ==========================
+      DARK MODE
+========================== */
+
+body.dark-mode{
+
+    --bg:#0f172a;
+
+    --card:#1e293b;
+
+    --text:#f8fafc;
+
+    --text-light:#cbd5e1;
+
+    --border:#334155;
+
+    --shadow:
+    0 12px 30px rgba(0,0,0,.45);
+
+}
+
+/* ==========================
+      BODY
+========================== */
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    font-family:"Poppins",sans-serif;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    transition:.35s;
+
+}
+
+/* ==========================
+     HEADINGS
+========================== */
+
+h1,h2,h3,h4,h5,h6{
+
+    color:var(--text);
+
+    transition:.3s;
+
+}
+
+p{
+
+    color:var(--text-light);
+
+    transition:.3s;
+
+}
+
+/* ==========================
+       LINKS
+========================== */
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+/* ==========================
+      BUTTONS
+========================== */
+
+button{
+
+    font-family:inherit;
+
+}
+
+/* ==========================
+        CARDS
+========================== */
+
+.card,
+
+.login-form,
+
+.register-form,
+
+.dashboard-card,
+
+.result-card,
+
+.predict-box,
+
+.profile-card,
+
+.history-card{
+
+    background:var(--card);
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    transition:.35s;
+
+}
+
+/* ==========================
+        INPUTS
+========================== */
+
+input,
+
+select,
+
+textarea{
+
+    background:var(--card);
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+    transition:.35s;
+
+}
+
+input::placeholder{
+
+    color:var(--text-light);
+
+}
+
+/* ==========================
+        TABLE
+========================== */
+
+table{
+
+    background:var(--card);
+
+    color:var(--text);
+
+}
+
+th{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+/* ==========================
+      NAVBAR
+========================== */
+
+.navbar{
+
+    background:var(--card);
+
+    box-shadow:var(--shadow);
+
+    transition:.35s;
+
+}
+
+/* ==========================
+     HERO SECTION
+========================== */
+
+.hero{
+
+    background:transparent;
+
+}
+
+/* ==========================
+      THEME BUTTON
+========================== */
+
+.theme-toggle{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+#theme-btn{
+
+    width:48px;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    background:var(--primary);
+
+    color:white;
+
+    font-size:20px;
+
+    transition:.35s;
+
+}
+
+#theme-btn:hover{
+
+    transform:rotate(180deg) scale(1.08);
+
+    background:var(--primary-dark);
+
+}
+
+/* ==========================
+       SCROLLBAR
+========================== */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--primary);
+
+    border-radius:20px;
+
+}

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Healthcare Assistant</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/predict.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+
+</head>
+
+<body>
+
+<div class="main-container">
+
+    <!-- ================= HEADER ================= -->
+     
+<div class="theme-toggle">
+    <button id="theme-btn">
+        <i class="fa-solid fa-moon"></i>
+    </button>
+</div>
+    <div class="header">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-stethoscope"></i>
+
+        </div>
+
+        <h1> Healthcare AI</h1>
+
+        <p>
+            AI Powered Disease Prediction using Machine Learning
+        </p>
+
+    </div>
+
+    <!-- ================= FORM ================= -->
+
+    <form action="/result"
+          method="POST"
+          id="symptomForm">
+
+        <!-- ================= PATIENT INFO ================= -->
+
+        <div class="section-title">
+
+            <i class="fa-solid fa-user"></i>
+
+            Patient Information
+
+        </div>
+
+        <div class="grid-3">
+
+            <div class="input-box">
+
+                <label for="age">Age</label>
+
+                <input
+                    type="number"
+                    id="age"
+                    name="age"
+                    placeholder="Enter Age"
+                    required>
+
+            </div>
+
+            <div class="input-box">
+
+                <label for="gender">Gender</label>
+
+                <select id="gender" name="gender" required>
+
+                    <option value="">Select Gender</option>
+
+                    <option value="Male">Male</option>
+
+                    <option value="Female">Female</option>
+
+                    <option value="Other">Other</option>
+
+                </select>
+
+            </div>
+
+            <div class="input-box">
+
+                <label for="weight">Weight (kg)</label>
+
+                <input
+                    type="number"
+                    id="weight"
+                    name="weight"
+                    placeholder="Weight">
+
+            </div>
+
+            <div class="input-box">
+
+                <label for="height">Height (cm)</label>
+
+                <input
+                    type="number"
+                    id="height"
+                    name="height"
+                    placeholder="Height in cm">
+
+            </div>
+
+            <div class="input-box bmi-box">
+
+                <label for="bmi">BMI</label>
+
+                <input
+                    type="number"
+                    step="0.1"
+                    id="bmi"
+                    name="bmi"
+                    placeholder="BMI"
+                    required
+                    readonly>
+
+                <button type="button" id="calcBmiBtn" class="bmi-calc-btn">
+                    <i class="fa-solid fa-calculator"></i>
+                    Calculate BMI
+                </button>
+
+            </div>
+
+            <div class="input-box">
+
+                <label for="blood_pressure">Blood Pressure</label>
+
+                <select id="blood_pressure" name="blood_pressure">
+
+                    <option value="">Select</option>
+
+                    <option value="Low">Low</option>
+
+                    <option value="Normal">Normal</option>
+
+                    <option value="High">High</option>
+
+                </select>
+
+            </div>
+
+            <div class="input-box">
+
+                <label for="cholesterol">Cholesterol</label>
+
+                <select id="cholesterol" name="cholesterol">
+
+                    <option value="">Select</option>
+
+                    <option value="Low">Low</option>
+
+                    <option value="Normal">Normal</option>
+
+                    <option value="High">High</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- ================= SYMPTOMS ================= -->
+
+        <div class="section-title">
+
+            <i class="fa-solid fa-notes-medical"></i>
+
+            Select Symptoms
+
+        </div>
+
+        <div class="grid-3">
+
+            <!-- Symptom 1 -->
+            <div class="input-box">
+                <label for="symptom1">Symptom 1</label>
+                <select class="symptom-select" id="symptom1" name="symptom1" required>
+                    <option value="">Select Symptom</option>
+                    {% for symptom in symptoms %}
+                    <option value="{{ symptom.lower() }}">{{ symptom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Symptom 2 -->
+            <div class="input-box">
+                <label for="symptom2">Symptom 2</label>
+                <select class="symptom-select" id="symptom2" name="symptom2">
+                    <option value="">Select Symptom</option>
+                    {% for symptom in symptoms %}
+                    <option value="{{ symptom.lower() }}">{{ symptom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Symptom 3 -->
+            <div class="input-box">
+                <label for="symptom3">Symptom 3</label>
+                <select class="symptom-select" id="symptom3" name="symptom3">
+                    <option value="">Select Symptom</option>
+                    {% for symptom in symptoms %}
+                    <option value="{{ symptom.lower() }}">{{ symptom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Symptom 4 -->
+            <div class="input-box">
+                <label for="symptom4">Symptom 4</label>
+                <select class="symptom-select" id="symptom4" name="symptom4">
+                    <option value="">Select Symptom</option>
+                    {% for symptom in symptoms %}
+                    <option value="{{ symptom.lower() }}">{{ symptom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Symptom 5 -->
+            <div class="input-box">
+                <label for="symptom5">Symptom 5</label>
+                <select class="symptom-select" id="symptom5" name="symptom5">
+                    <option value="">Select Symptom</option>
+                    {% for symptom in symptoms %}
+                    <option value="{{ symptom.lower() }}">{{ symptom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Symptom 6 -->
+            <div class="input-box">
+                <label for="symptom6">Symptom 6</label>
+                <select class="symptom-select" id="symptom6" name="symptom6">
+                    <option value="">Select Symptom</option>
+                    {% for symptom in symptoms %}
+                    <option value="{{ symptom.lower() }}">{{ symptom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Symptom 7 -->
+            <div class="input-box">
+                <label for="symptom7">Symptom 7</label>
+                <select class="symptom-select" id="symptom7" name="symptom7">
+                    <option value="">Select Symptom</option>
+                    {% for symptom in symptoms %}
+                    <option value="{{ symptom.lower() }}">{{ symptom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Symptom 8 -->
+            <div class="input-box">
+                <label for="symptom8">Symptom 8</label>
+                <select class="symptom-select" id="symptom8" name="symptom8">
+                    <option value="">Select Symptom</option>
+                    {% for symptom in symptoms %}
+                    <option value="{{ symptom.lower() }}">{{ symptom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Symptom 9 -->
+            <div class="input-box">
+                <label for="symptom9">Symptom 9</label>
+                <select class="symptom-select" id="symptom9" name="symptom9">
+                    <option value="">Select Symptom</option>
+                    {% for symptom in symptoms %}
+                    <option value="{{ symptom.lower() }}">{{ symptom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Symptom 10 -->
+            <div class="input-box">
+                <label for="symptom10">Symptom 10</label>
+                <select class="symptom-select" id="symptom10" name="symptom10">
+                    <option value="">Select Symptom</option>
+                    {% for symptom in symptoms %}
+                    <option value="{{ symptom.lower() }}">{{ symptom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Symptom 11 -->
+            <div class="input-box">
+                <label for="symptom11">Symptom 11</label>
+                <select class="symptom-select" id="symptom11" name="symptom11">
+                    <option value="">Select Symptom</option>
+                    {% for symptom in symptoms %}
+                    <option value="{{ symptom.lower() }}">{{ symptom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Symptom 12 -->
+            <div class="input-box">
+                <label for="symptom12">Symptom 12</label>
+                <select class="symptom-select" id="symptom12" name="symptom12">
+                    <option value="">Select Symptom</option>
+                    {% for symptom in symptoms %}
+                    <option value="{{ symptom.lower() }}">{{ symptom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+        </div>
+
+        <!-- Error Message -->
+        <div class="form-error" id="formError"></div>
+
+        <!-- Predict Button -->
+        <div class="btn-area">
+
+            <button type="submit">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                Predict Disease
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+<!-- ================= SCRIPTS ================= -->
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+
+$(document).ready(function(){
+
+    // Searchable Dropdowns
+    $(".symptom-select").select2({
+
+        placeholder:"Search Symptom",
+
+        allowClear:true,
+
+        width:"100%"
+
+    });
+
+    $("#symptomForm").submit(function(e){
+
+        let symptoms=[];
+
+        let duplicate=false;
+
+        $(".symptom-select").each(function(){
+
+            let value=$(this).val();
+
+            if(value){
+
+                if(symptoms.includes(value)){
+
+                    duplicate=true;
+
+                }
+
+                symptoms.push(value);
+
+            }
+
+        });
+
+        if(symptoms.length==0){
+
+            e.preventDefault();
+
+            $("#formError")
+                .text("Please select at least one symptom.")
+                .show();
+
+            return;
+
+        }
+
+        if(duplicate){
+
+            e.preventDefault();
+
+            $("#formError")
+                .text("Duplicate symptoms are not allowed.")
+                .show();
+
+            return;
+
+        }
+
+        $("#formError").hide();
+
+    });
+
+    // BMI Calculation
+    $("#calcBmiBtn").on("click", function(){
+
+        let weight = parseFloat($("#weight").val());
+
+        let heightCm = parseFloat($("#height").val());
+
+        if(!weight || !heightCm || weight <= 0 || heightCm <= 0){
+
+            $("#formError")
+                .text("BMI calculate karnyasathi weight ani height (cm) donhi bhara.")
+                .show();
+
+            return;
+
+        }
+
+        let heightM = heightCm / 100;
+
+        let bmi = weight / (heightM * heightM);
+
+        $("#bmi").val(bmi.toFixed(1));
+
+        $("#formError").hide();
+
+    });
+
+});
+
+</script>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+
+</body>
+
+</html>

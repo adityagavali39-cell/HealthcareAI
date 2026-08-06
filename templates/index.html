@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Healthcare Assistant</title>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link rel="stylesheet"
+href="{{ url_for('static', filename='css/theme.css') }}">
+
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <nav class="navbar">
+
+        <!-- Logo -->
+        <a href="/" class="logo">
+            🩺 Healthcare AI
+        </a>
+
+        <!-- Navigation -->
+        <ul class="nav-menu">
+
+            <li><a href="#">Home</a></li>
+
+            <li><a href="#features">Features</a></li>
+
+            <li><a href="#about">About</a></li>
+
+            <li><a href="#contact">Contact</a></li>
+
+        </ul>
+
+        <!-- Right Buttons -->
+        <div class="buttons">
+
+            <a href="/login" class="login-btn">Login</a>
+
+            <a href="/register" class="register-btn">Register</a>
+
+            <button id="theme-btn" class="theme-btn">
+
+                <i class="fa-solid fa-moon"></i>
+
+            </button>
+
+        </div>
+
+    </nav>
+
+</header>
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-left">
+
+        <span class="tag">
+            AI Powered Healthcare
+        </span>
+
+        <h1>
+
+            Smart Healthcare Assistant Using
+            <span>Machine Learning</span>
+
+        </h1>
+
+        <p>
+
+            Predict diseases based on symptoms,
+            receive personalized healthcare recommendations,
+            locate nearby hospitals and securely manage
+            your medical records through one intelligent platform.
+
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="/predict" class="primary-btn">
+
+                <i class="fa-solid fa-stethoscope"></i>
+
+                Check Symptoms
+
+            </a>
+
+            <a href="#features" class="secondary-btn">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+                Learn More
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="hero-right">
+
+        <img src="{{ url_for('static', filename='images/doctor.png') }}"
+             alt="Doctor"
+             class="hero-image">
+
+    </div>
+
+</section>
+<!-- ================= STATS ================= -->
+
+<section class="stats">
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-user-doctor"></i>
+
+        <h2>100+</h2>
+
+        <p>Doctors</p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-hospital"></i>
+
+        <h2>500+</h2>
+
+        <p>Hospitals</p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-heart-circle-check"></i>
+
+        <h2>95%</h2>
+
+        <p>Prediction Accuracy</p>
+
+    </div>
+
+    <div class="stat-card">
+
+        <i class="fa-solid fa-users"></i>
+
+        <h2>10K+</h2>
+
+        <p>Users</p>
+
+    </div>
+
+</section>
+<!-- ================= OUR FEATURES ================= -->
+
+<section class="features" id="features">
+
+    <div class="section-title">
+
+        <span>OUR FEATURES</span>
+
+        <h2>Smart Healthcare Features</h2>
+
+        <p>
+            Experience intelligent healthcare powered by Machine Learning and AI.
+        </p>
+
+    </div>
+
+    <div class="feature-grid">
+
+        <!-- Feature 1 -->
+        <div class="feature-card">
+
+            <i class="fa-solid fa-stethoscope"></i>
+
+            <h3>Symptom Checker</h3>
+
+            <p>
+                Predict diseases by selecting symptoms and patient details.
+            </p>
+
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+
+            <i class="fa-solid fa-brain"></i>
+
+            <h3>AI Prediction</h3>
+
+            <p>
+                Machine Learning model provides accurate disease prediction.
+            </p>
+
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+
+            <i class="fa-solid fa-heart-pulse"></i>
+
+            <h3>Health Analysis</h3>
+
+            <p>
+                Analyze your health condition with confidence score.
+            </p>
+
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+
+            <i class="fa-solid fa-user-doctor"></i>
+
+            <h3>Doctor Recommendation</h3>
+
+            <p>
+                Get the best specialist according to predicted disease.
+            </p>
+
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card">
+
+            <i class="fa-solid fa-file-medical"></i>
+
+            <h3>Medical Report</h3>
+
+            <p>
+                Download complete AI generated healthcare report.
+            </p>
+
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card">
+
+            <i class="fa-solid fa-shield-heart"></i>
+
+            <h3>Personalized Care</h3>
+
+            <p>
+                Receive precautions, diet plan and workout recommendations.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= HOW IT WORKS ================= -->
+
+<section class="process" id="process">
+
+    <div class="section-title">
+
+        <span>HOW IT WORKS</span>
+
+        <h2>Our AI Prediction Process</h2>
+
+        <p>
+            Complete your health analysis in four simple steps.
+        </p>
+
+    </div>
+
+    <div class="process-container">
+
+        <div class="process-card">
+
+            <div class="process-icon">
+
+                <i class="fa-solid fa-user"></i>
+
+            </div>
+
+            <h3>Enter Details</h3>
+
+            <p>
+                Enter Age, Gender and BMI.
+            </p>
+
+        </div>
+
+        <div class="arrow">
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </div>
+
+        <div class="process-card">
+
+            <div class="process-icon">
+
+                <i class="fa-solid fa-notes-medical"></i>
+
+            </div>
+
+            <h3>Select Symptoms</h3>
+
+            <p>
+                Select your symptoms from the list.
+            </p>
+
+        </div>
+
+        <div class="arrow">
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </div>
+
+        <div class="process-card">
+
+            <div class="process-icon">
+
+                <i class="fa-solid fa-brain"></i>
+
+            </div>
+
+            <h3>AI Analysis</h3>
+
+            <p>
+                Machine Learning analyzes your health information.
+            </p>
+
+        </div>
+
+        <div class="arrow">
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </div>
+
+        <div class="process-card">
+
+            <div class="process-icon">
+
+                <i class="fa-solid fa-file-medical"></i>
+
+            </div>
+
+            <h3>Get Report</h3>
+
+            <p>
+                Download your personalized healthcare report.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ================= ABOUT ================= -->
+
+<section class="about" id="about">
+
+    <div class="about-container">
+
+        <div class="about-text">
+
+            <span class="section-tag">
+                ABOUT PROJECT
+            </span>
+
+            <h2>
+                Smart Healthcare Assistant Using Machine Learning
+            </h2>
+
+            <p>
+
+                Smart Healthcare Assistant is an AI-powered web application
+                that predicts diseases using Machine Learning algorithms.
+                Users can enter symptoms and receive disease prediction,
+                confidence score, doctor recommendation,
+                precautions, diet plan and workout suggestions.
+
+            </p>
+
+            <div class="about-features">
+
+                <div class="feature">
+
+                    <i class="fa-solid fa-brain"></i>
+
+                    <span>AI Prediction</span>
+
+                </div>
+
+                <div class="feature">
+
+                    <i class="fa-solid fa-heart-pulse"></i>
+
+                    <span>Health Analysis</span>
+
+                </div>
+
+                <div class="feature">
+
+                    <i class="fa-solid fa-user-doctor"></i>
+
+                    <span>Doctor Recommendation</span>
+
+                </div>
+
+                <div class="feature">
+
+                    <i class="fa-solid fa-shield-heart"></i>
+
+                    <span>Personalized Care</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="about-image">
+
+            <img src="{{ url_for('static', filename='images/Healthcare.png') }}"
+                 alt="Healthcare">
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <!-- Left -->
+
+        <div class="footer-box">
+
+            <h2>
+              
+             🩺 Healthcare AI
+            </h2>
+
+            <p>
+                Smart Healthcare Assistant using Machine Learning
+                helps users predict diseases based on symptoms and
+                provides personalized healthcare recommendations.
+            </p>
+
+            <div class="contact-info">
+
+                <p>
+                    <i class="fa-solid fa-envelope"></i>
+                    healthcare0ai@gmail.com
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-phone"></i>
+                    +91 9226120917
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-location-dot"></i>
+                    Beed, Maharashtra
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Quick Links -->
+
+        <div class="footer-box">
+
+            <h2>Quick Links</h2>
+
+            <ul>
+
+                <li><a href="#home"><i class="fa-solid fa-house"></i> Home</a></li>
+
+                <li><a href="#features"><i class="fa-solid fa-star"></i> Features</a></li>
+
+                <li><a href="#about"><i class="fa-solid fa-circle-info"></i> About</a></li>
+
+                <li><a href="/login"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
+
+                <li><a href="/register"><i class="fa-solid fa-user-plus"></i> Register</a></li>
+
+            </ul>
+
+        </div>
+
+        <!-- Developer -->
+<!-- Right -->
+        <div class="footer-right">
+
+            <h2>
+                <i class="fas fa-users"></i>
+                Developed By
+            </h2>
+
+            <!-- Developer 1 -->
+
+            <div class="developer-card">
+
+                <div class="developer-info">
+
+                    <div class="avatar">
+                        👨‍💻
+                    </div>
+
+                    <div>
+
+                        <h3>Vaishnav Narute</h3>
+
+                        <span>Full Stack Developer</span>
+
+                        <div class="social">
+<!-- GitHub -->
+<a href="https://github.com/narutevaishnav"
+   target="_blank"
+   rel="noopener noreferrer">
+    <i class="fab fa-github"></i>
+</a>
+
+<!-- LinkedIn -->
+<a href="https://www.linkedin.com/in/vaishnav-narute-4775b5343"
+   target="_blank"
+   rel="noopener noreferrer">
+    <i class="fab fa-linkedin"></i>
+</a>
+
+<!-- X (Twitter) -->
+
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Developer 2 -->
+
+            <div class="developer-card">
+
+                <div class="developer-info">
+
+                    <div class="avatar">
+                        👨‍💻
+                    </div>
+
+                    <div>
+
+                        <h3>Aditya Gavali</h3>
+
+                        <span>AI / ML Developer</span>
+
+                        <div class="social">
+
+                           <!-- GitHub -->
+                             <a href="https://github.com/adityagavali39-cell"target="_blank"rel="noopener noreferrer">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            
+                           <!-- LinkedIn -->
+                          <a href="https://www.linkedin.com/in/aditya-gavali-bab37939b?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank"rel="noopener noreferrer">
+                           <i class="fab fa-linkedin"></i>
+
+                        
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="copyright">
+
+        © 2026 Healthcare AI. All Rights Reserved.
+
+    </div>
+
+</footer>
+<!-- ================= THEME JS ================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const themeBtn = document.getElementById("theme-btn");
+
+    // Load Saved Theme
+    if(localStorage.getItem("theme")=="light"){
+
+        document.body.classList.add("light");
+
+        if(themeBtn){
+
+            themeBtn.innerHTML='<i class="fa-solid fa-sun"></i>';
+
+        }
+
+    }
+
+    if(themeBtn){
+
+        themeBtn.addEventListener("click",function(){
+
+            document.body.classList.toggle("light");
+
+            if(document.body.classList.contains("light")){
+
+                localStorage.setItem("theme","light");
+
+                themeBtn.innerHTML='<i class="fa-solid fa-sun"></i>';
+
+            }
+
+            else{
+
+                localStorage.setItem("theme","dark");
+
+                themeBtn.innerHTML='<i class="fa-solid fa-moon"></i>';
+
+            }
+
+        });
+
+    }
+
+});
+
+</script>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+
+</body>
+
+</html>

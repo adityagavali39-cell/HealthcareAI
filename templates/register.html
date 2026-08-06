@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register | Smart Healthcare Assistant</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/register.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/theme.css') }}">
+
+</head>
+
+<body>
+<div class="theme-toggle">
+    <button id="theme-btn">
+        <i class="fa-solid fa-moon"></i>
+    </button>
+</div>
+<div class="container">
+
+    <div class="register-box">
+
+        <h2>Create Account</h2>
+
+        <p>Join Smart Healthcare Assistant</p>
+
+        <form action="/register" method="POST">
+
+            <!-- Row 1 -->
+
+            <div class="row">
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input
+                        type="text"
+                        name="fullname"
+                        placeholder="Full Name"
+                        required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email Address"
+                        required>
+
+                </div>
+
+            </div>
+
+            <!-- Row 2 -->
+
+            <div class="row">
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-calendar"></i>
+
+                    <input
+                        type="number"
+                        name="age"
+                        placeholder="Age"
+                        required>
+
+                </div>
+
+                <div class="input-box">
+
+                    <select
+                        name="gender"
+                        required>
+
+                        <option value="">Select Gender</option>
+
+                        <option value="Male">Male</option>
+
+                        <option value="Female">Female</option>
+
+                        <option value="Other">Other</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <!-- Row 3 -->
+
+            <div class="row">
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-weight-scale"></i>
+
+                    <input
+                        type="number"
+                        name="weight"
+                        placeholder="Weight (kg)">
+
+                </div>
+
+                <div class="input-box">
+
+                    <select name="blood_group">
+
+                        <option value="">Blood Group</option>
+
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <!-- Password -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-lock"></i>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required>
+
+            </div>
+
+            <!-- Confirm Password -->
+
+            <div class="input-box">
+
+                <i class="fa-solid fa-lock"></i>
+
+                <input
+                    type="password"
+                    name="confirm_password"
+                    placeholder="Confirm Password"
+                    required>
+
+            </div>
+
+            <!-- Button -->
+
+            <button type="submit">
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                Create Account
+
+            </button>
+
+        </form>
+
+        <div class="login-link">
+
+            Already have an account?
+
+            <a href="/login">
+
+                Login
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+</body>
+
+</html>

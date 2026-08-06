@@ -1,0 +1,763 @@
+/* ==========================================
+   GOOGLE FONT
+========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+
+/* ==========================================
+   ROOT COLORS (LIGHT)
+========================================== */
+
+:root{
+    --accent:#0066ff;
+    --accent-cyan:#24c8ff;
+
+    --bg:#eef4fb;
+    --card:#ffffff;
+
+    --field:#f1f5f9;
+    --field-hover:#e6edf5;
+
+    --text:#0f172a;
+    --text-light:#5b7186;
+
+    --border:#e2e8f0;
+    --shadow:0 14px 30px rgba(15,23,42,.08);
+
+    --btn-download:#1976d2;
+    --btn-download-hover:#0b7be0;
+    --btn-predict:#2e7d32;
+    --btn-predict-hover:#00a844;
+}
+
+
+/* ==========================================
+   DARK MODE
+========================================== */
+
+body.dark-mode{
+    --bg:#081320;
+    --card:rgba(20,34,58,.92);
+
+    --field:#22314d;
+    --field-hover:#2b3f62;
+
+    --text:#ffffff;
+    --text-light:#b6c7dc;
+
+    --border:rgba(255,255,255,.06);
+    --shadow:0 14px 30px rgba(0,0,0,.35);
+
+    --btn-download:#2196f3;
+    --btn-predict:#00c853;
+}
+
+
+/* ==========================================
+   RESET
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+
+/* ==========================================
+   BODY
+========================================== */
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+    transition:background .35s ease,color .35s ease;
+}
+
+body.dark-mode{
+    background:linear-gradient(135deg,#081320,#13233d,#0e2b4d);
+}
+
+
+/* ==========================================
+   CONTAINER
+========================================== */
+
+.container{
+    width:92%;
+    max-width:1200px;
+    margin:26px auto;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:22px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo i{
+    width:48px;
+    height:48px;
+    border-radius:14px;
+    background:linear-gradient(135deg,#00d4ff,#0066ff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:20px;
+    color:white;
+    box-shadow:0 10px 22px rgba(0,150,255,.35);
+}
+
+.logo h1{
+    font-size:22px;
+    font-weight:700;
+}
+
+.logo span{
+    color:var(--text-light);
+    font-size:12px;
+}
+
+
+/* ==========================================
+   HERO CARD
+========================================== */
+
+.hero-card{
+    background:var(--card);
+    border-radius:18px;
+    padding:22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+    margin-bottom:22px;
+    transition:background .35s,border-color .35s,box-shadow .35s;
+}
+
+.hero-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.success-icon{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#22e36d,#00b050);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 10px 22px rgba(0,255,120,.25);
+}
+
+.success-icon i{
+    font-size:24px;
+    color:white;
+}
+
+.hero-left h2{
+    font-size:24px;
+    font-weight:700;
+    margin-bottom:4px;
+}
+
+.hero-left p{
+    color:var(--text-light);
+    font-size:14px;
+}
+
+
+/* ==========================================
+   CONFIDENCE CIRCLE
+========================================== */
+
+.hero-right{
+    text-align:center;
+}
+
+.confidence-circle{
+    width:92px;
+    height:92px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#00b7ff,#0066ff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:auto;
+    box-shadow:0 12px 26px rgba(0,140,255,.35);
+}
+
+.confidence-circle span{
+    font-size:20px;
+    font-weight:700;
+}
+
+.hero-right small{
+    display:block;
+    margin-top:8px;
+    font-size:12px;
+    color:var(--text-light);
+}
+
+
+/* ==========================================
+   GRID
+========================================== */
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+    margin-bottom:18px;
+}
+
+/* ==========================================
+   CARD DESIGN
+========================================== */
+
+.card{
+    background:var(--card);
+    border-radius:16px;
+    padding:20px;
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+    transition:.35s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 18px 36px rgba(0,150,255,.20);
+}
+
+
+/* ==========================================
+   CARD TITLE
+========================================== */
+
+.card-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:16px;
+    font-size:18px;
+    font-weight:700;
+}
+
+.card-title i{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#16c6ff,#246dff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+    font-size:15px;
+    box-shadow:0 8px 20px rgba(0,150,255,.25);
+}
+
+.card-title h2{
+    font-size:18px;
+    font-weight:700;
+}
+
+
+/* ==========================================
+   PATIENT INFO GRID
+========================================== */
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.info-item{
+    background:var(--field);
+    border-radius:10px;
+    padding:12px;
+    transition:background .35s;
+}
+
+.label{
+    display:block;
+    color:var(--text-light);
+    font-size:12px;
+    margin-bottom:4px;
+}
+
+.value{
+    color:var(--text);
+    font-size:16px;
+    font-weight:600;
+}
+
+
+/* ==========================================
+   AI SUMMARY
+========================================== */
+
+.prediction-summary{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:11px 13px;
+    background:var(--field);
+    border-radius:10px;
+    transition:background .35s;
+}
+
+.summary-row span{
+    color:var(--text-light);
+    font-size:12px;
+}
+
+.summary-row strong{
+    color:var(--accent-cyan);
+    font-size:14px;
+    font-weight:700;
+}
+
+
+/* ==========================================
+   ANIMATION
+========================================== */
+
+.fade-up{
+    animation:fadeUp .8s ease;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ==========================================
+   CARD BODY
+========================================== */
+
+.card-body{
+    margin-top:10px;
+}
+
+
+/* ==========================================
+   STYLED LIST
+========================================== */
+
+.styled-list{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.styled-list li{
+    background:var(--field);
+    border-radius:10px;
+    padding:11px 13px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--text);
+    font-size:13px;
+    transition:.30s;
+    border:1px solid var(--border);
+}
+
+.styled-list li:hover{
+    transform:translateX(6px);
+    background:var(--field-hover);
+}
+
+
+/* ==========================================
+   LIST ICON
+========================================== */
+
+.styled-list li i{
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#00d4ff,#246dff);
+    color:white;
+    font-size:11px;
+    flex-shrink:0;
+}
+
+
+/* ==========================================
+   EMPTY MESSAGE
+========================================== */
+
+.card-body p{
+    color:var(--text-light);
+    font-size:13px;
+}
+
+
+/* ==========================================
+   DIET CARD
+========================================== */
+
+.card:nth-child(1){
+    animation-delay:.1s;
+}
+
+
+/* ==========================================
+   WORKOUT CARD
+========================================== */
+
+.card:nth-child(2){
+    animation-delay:.2s;
+}
+
+
+/* ==========================================
+   SMOOTH TRANSITION
+========================================== */
+
+.card,
+.styled-list li{
+    transition:all .35s ease;
+}
+
+
+/* ==========================================
+   DOCTOR SECTION LAYOUT
+========================================== */
+
+.doctor-box{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+
+/* ==========================================
+   DOCTOR AVATAR
+========================================== */
+
+.doctor-avatar{
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#22c7ff,#256dff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-shrink:0;
+}
+
+.doctor-avatar i{
+    color:white;
+    font-size:30px;
+}
+
+
+/* ==========================================
+   DOCTOR DETAILS
+========================================== */
+
+.doctor-details{
+    flex:1;
+}
+
+.doctor-details h3{
+    color:var(--accent-cyan);
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:6px;
+}
+
+.doctor-details span{
+    display:inline-block;
+    color:var(--accent);
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+.doctor-details p{
+    color:var(--text-light);
+    font-size:13px;
+    line-height:1.6;
+}
+
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.action-buttons{
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    margin-top:24px;
+}
+
+.btn{
+    padding:12px 26px;
+    border-radius:10px;
+    text-decoration:none;
+    color:#fff;
+    font-size:14px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    transition:.35s;
+}
+
+.btn-download{
+    background:var(--btn-download);
+}
+
+.btn-download:hover{
+    background:var(--btn-download-hover);
+    transform:translateY(-3px);
+}
+
+.btn-predict{
+    background:var(--btn-predict);
+}
+
+.btn-predict:hover{
+    background:var(--btn-predict-hover);
+    transform:translateY(-3px);
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.footer{
+    text-align:center;
+    margin-top:26px;
+    padding:16px 0;
+    color:var(--text-light);
+    font-size:13px;
+    border-top:1px solid var(--border);
+}
+
+.footer p{
+    letter-spacing:.5px;
+}
+
+
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar{
+    width:9px;
+}
+
+::-webkit-scrollbar-track{
+    background:var(--bg);
+}
+
+::-webkit-scrollbar-thumb{
+    background:#2495ff;
+    border-radius:10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#0078ff;
+}
+
+
+/* ==========================================
+   GLASS EFFECT
+========================================== */
+
+.card,
+.hero-card{
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+}
+
+
+/* ==========================================
+   HOVER GLOW
+========================================== */
+
+.card:hover,
+.hero-card:hover{
+    border-color:rgba(36,149,255,.45);
+}
+
+
+/* ==========================================
+   ICON ANIMATION
+========================================== */
+
+.logo i,
+.success-icon,
+.doctor-avatar{
+    transition:.4s;
+}
+
+.logo i:hover,
+.success-icon:hover,
+.doctor-avatar:hover{
+    transform:scale(1.08) rotate(5deg);
+}
+
+
+/* ==========================================
+   BUTTON EFFECT
+========================================== */
+
+.btn{
+    position:relative;
+    overflow:hidden;
+}
+
+.btn::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:rgba(255,255,255,.18);
+    transition:.45s;
+}
+
+.btn:hover::before{
+    left:100%;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:1100px){
+
+    .dashboard-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero-card{
+        flex-direction:column;
+        gap:20px;
+        text-align:center;
+    }
+
+    .hero-left{
+        flex-direction:column;
+    }
+
+    .doctor-body{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .container{
+        width:95%;
+        margin:16px auto;
+    }
+
+    .hero-left h2{
+        font-size:20px;
+    }
+
+    .confidence-circle{
+        width:80px;
+        height:80px;
+    }
+
+    .confidence-circle span{
+        font-size:18px;
+    }
+
+    .card-title h2{
+        font-size:16px;
+    }
+
+    .doctor-details h3{
+        font-size:20px;
+    }
+
+    .action-buttons{
+        flex-direction:column;
+    }
+
+    .btn{
+        width:100%;
+        justify-content:center;
+    }
+
+}
+/* ===========================
+   THEME TOGGLE
+=========================== */
+
+.theme-toggle{
+    display:flex;
+    align-items:center;
+}
+
+#theme-btn{
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:22px;
+    color:#fff;
+    background:linear-gradient(135deg,#00c6ff,#0072ff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transition:.35s;
+    box-shadow:0 12px 25px rgba(0,150,255,.35);
+}
+
+#theme-btn:hover{
+    transform:rotate(180deg) scale(1.08);
+}

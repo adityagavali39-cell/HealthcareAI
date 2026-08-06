@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard | Smart Healthcare Assistant</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/theme.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- Theme toggle -->
+<button id="theme-btn" class="theme-btn" aria-label="Toggle theme">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+<h2>🩺 Healthcare AI</h2>
+
+<ul>
+
+<li>
+<a href="/dashboard">
+<i class="fa-solid fa-house"></i>
+Dashboard
+</a>
+</li>
+
+<li>
+<a href="/predict">
+<i class="fa-solid fa-stethoscope"></i>
+Symptom Checker
+</a>
+</li>
+
+<li>
+<a href="/history">
+<i class="fa-solid fa-clock-rotate-left"></i>
+Prediction History
+</a>
+</li>
+
+<li>
+    <a href="/profile">
+        <i class="fa-solid fa-user"></i>
+        My Profile
+    </a>
+</li>
+<li>
+
+</li>
+
+<li>
+<a href="/logout">
+<i class="fa-solid fa-right-from-bracket"></i>
+Logout
+</a>
+</li>
+
+</ul>
+
+</div>
+
+<!-- Main Content -->
+
+<div class="main">
+
+<div class="top">
+
+<h1>Welcome, {{ fullname }} 👋</h1>
+
+<p>Stay Healthy. Stay Safe.</p>
+
+</div>
+
+<!-- Cards -->
+
+<div class="cards">
+
+<div class="card">
+
+<i class="fa-solid fa-heart-pulse"></i>
+
+<h2>95%</h2>
+
+<p>Health Score</p>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-file-medical"></i>
+
+<h2>12</h2>
+
+<p>Reports</p>
+
+</div>
+
+<div class="card">
+
+ <i class="fa-solid fa-bolt"></i>
+
+<h2>2.3s</h2>
+
+<p>Fast Prediction</p>
+
+</div>
+
+<div class="card">
+
+<i class="fa-solid fa-user-doctor"></i>
+
+<h2>18</h2>
+
+<p>Doctors</p>
+
+</div>
+
+</div>
+
+<!-- Action Buttons -->
+
+<div class="actions">
+
+<a href="/predict" class="btn">
+
+<i class="fa-solid fa-stethoscope"></i>
+
+Start Symptom Checker
+
+</a>
+
+<a href="/history" class="btn">
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+Prediction History
+
+</a>
+
+
+
+</div>
+
+<!-- Recent Prediction -->
+
+<div class="recent">
+
+<h2>Recent Predictions</h2>
+
+<table>
+
+<tr>
+
+<th>Date</th>
+
+<th>Disease</th>
+
+<th>Status</th>
+
+</tr>
+
+{% if history %}
+
+{% for row in history[:5] %}
+
+<tr>
+
+<td>{{ row["prediction_date"] }}</td>
+
+<td>{{ row["disease"] }}</td>
+
+<td>Completed</td>
+
+</tr>
+
+{% endfor %}
+
+{% else %}
+
+<tr>
+
+<td colspan="3">
+
+No Prediction History Found
+
+</td>
+
+</tr>
+
+{% endif %}
+
+</table>
+
+</div>
+
+</div>
+<script src="{{ url_for('static', filename='js/theme.js') }}?v=3"></script>
+</body>
+
+</html>

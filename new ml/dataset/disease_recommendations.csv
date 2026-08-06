@@ -1,0 +1,31 @@
+Disease,Diet,Precautions,Severity,Workout,Doctor
+Allergy,Drink plenty of water;Vitamin C fruits;Green vegetables;Avoid allergens,Avoid allergens;Take antihistamines;Wear a mask;Drink plenty of water,Low,Light walking;Breathing exercises;Stretching,Dermatologist
+Anemia,Spinach;Beans;Red meat;Eggs,Eat iron-rich foods;Take iron supplements;Get enough rest;Regular blood tests,Moderate,Light walking;Yoga;Breathing exercises,General Physician
+Anxiety,Green tea;Nuts;Bananas;Whole grains,Practice meditation;Exercise daily;Sleep 8 hours;Avoid stress,Moderate,Meditation;Yoga;Walking,Psychiatrist
+Arthritis,Fish;Turmeric;Olive oil;Leafy vegetables,Exercise regularly;Maintain healthy weight;Use hot/cold therapy;Avoid excessive strain,Moderate,Swimming;Stretching;Low-impact exercises,Orthopedic Doctor
+Asthma,Vitamin D foods;Fish;Fruits;Warm fluids,Carry inhaler;Avoid smoke;Exercise carefully;Regular checkups,High,Breathing exercises;Walking;Light yoga,Pulmonologist
+Bronchitis,Warm soup;Honey;Ginger tea;Fruits,Drink warm fluids;Avoid smoking;Rest well;Use prescribed medicines,Moderate,Breathing exercises;Walking,Pulmonologist
+COVID-19,Protein-rich food;Vitamin C;Warm fluids;Healthy diet,Isolate yourself;Wear a mask;Drink fluids;Monitor oxygen level,High,Light walking after recovery;Deep breathing,General Physician
+Chronic Kidney Disease,Low sodium diet;Controlled protein;Fresh vegetables;Doctor advised diet,Limit salt intake;Drink water as advised;Regular dialysis if needed;Follow doctor's advice,Critical,Doctor supervised exercise;Walking,Nephrologist
+Common Cold,Warm soup;Orange juice;Honey;Ginger tea,Drink warm fluids;Take adequate rest;Gargle with salt water;Maintain hygiene,Low,Rest;Light stretching after recovery,General Physician
+Dementia,Fish;Nuts;Blueberries;Vegetables,Maintain routine;Mental exercises;Family support;Regular neurologist visits,Critical,Walking;Memory games;Light exercise,Neurologist
+Depression,Dark chocolate;Fish;Nuts;Whole grains,Talk to therapist;Exercise;Sleep properly;Stay socially active,Moderate,Walking;Cycling;Yoga,Psychiatrist
+Dermatitis,Omega-3 foods;Fresh fruits;Vegetables;Water,Avoid irritants;Use moisturizer;Avoid scratching;Consult dermatologist,Low,Walking;Stretching,Dermatologist
+Diabetes,Whole grains;Leafy vegetables;Low sugar fruits;Lean protein,Monitor sugar;Exercise daily;Healthy diet;Take medicines regularly,High,Walking;Cycling;Strength training,Endocrinologist
+Epilepsy,Balanced diet;Healthy fats;Vegetables;Protein,Take medicines on time;Avoid sleep deprivation;Avoid alcohol;Visit neurologist regularly,Critical,Walking;Yoga under supervision,Neurologist
+Food Poisoning,ORS;Bananas;Rice;Curd,Drink ORS;Avoid oily food;Eat light meals;Maintain hygiene,Moderate,Rest until recovery,Gastroenterologist
+Gastritis,Boiled food;Bananas;Rice;Oatmeal,Avoid spicy food;Eat small meals;Reduce caffeine;Drink water,Low,Walking after meals;Yoga,Gastroenterologist
+Heart Disease,Low fat diet;Oats;Fish;Fresh vegetables,Low-fat diet;Regular exercise;Avoid smoking;Monitor BP,Critical,Cardiac exercises;Walking,Cardiologist
+Hypertension,Low salt diet;Bananas;Leafy vegetables;Low-fat dairy,Reduce salt;Exercise daily;Manage stress;Take BP medicines,High,Walking;Meditation;Cycling,Cardiologist
+IBS,High fiber foods;Oats;Bananas;Water,Eat fiber-rich food;Avoid trigger foods;Drink water;Exercise,Low,Walking;Yoga,Gastroenterologist
+Influenza,Warm soup;Vitamin C fruits;Honey;Water,Rest well;Drink fluids;Take antiviral medicine if prescribed;Wear mask,Moderate,Rest until recovery,General Physician
+Liver Disease,Fresh fruits;Vegetables;Whole grains;Lean protein,Avoid alcohol;Healthy diet;Take medicines;Regular liver tests,High,Walking;Stretching,Hepatologist
+Migraine,Water;Magnesium-rich foods;Fruits;Nuts,Avoid bright light;Stay hydrated;Sleep well;Reduce stress,Moderate,Yoga;Meditation,Neurologist
+Obesity,Salads;Lean protein;Whole grains;Fruits,Balanced diet;Regular exercise;Avoid junk food;Track weight,Moderate,Walking;Jogging;Cycling,Dietitian
+Parkinson's,High fiber foods;Vegetables;Fruits;Healthy fats,Physical therapy;Take medicines;Exercise;Neurologist follow-up,Critical,Balance exercises;Walking,Neurologist
+Pneumonia,Protein-rich food;Warm fluids;Vegetables;Fruits,Take antibiotics;Drink fluids;Rest well;Monitor breathing,High,Breathing exercises after recovery,Pulmonologist
+Sinusitis,Warm soup;Garlic;Ginger;Water,Steam inhalation;Drink fluids;Avoid dust;Take medicines,Low,Walking;Steam breathing exercises,ENT Specialist
+Stroke,Low fat diet;Whole grains;Fish;Vegetables,Emergency treatment;Physical therapy;Healthy lifestyle;Control BP,Critical,Physiotherapy;Walking,Neurologist
+Thyroid Disorder,Seafood;Eggs;Milk;Brazil nuts,Take thyroid medicine;Regular thyroid tests;Healthy diet;Exercise,Moderate,Walking;Yoga,Endocrinologist
+Tuberculosis,High protein diet;Milk;Eggs;Fruits,Complete antibiotic course;Wear mask;Eat nutritious food;Regular follow-up,High,Walking after recovery,Pulmonologist
+Ulcer,Milk;Bananas;Boiled vegetables;Rice,Avoid spicy food;Eat on time;Take prescribed medicines;Avoid alcohol,Moderate,Walking;Light yoga,Gastroenterologist

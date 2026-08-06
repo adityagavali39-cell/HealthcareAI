@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+
+.env
+
+venv/
+.venv/
+
+.vscode/
+
+postgresql
+
+database/*.db
+
+healthcareaimodels
+
+new ml/models/
+*.pkl
