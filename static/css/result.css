@@ -136,29 +136,38 @@ header{
 
 
 /* ==========================================
-   HERO CARD
+   HERO GRID (3 CARDS)
 ========================================== */
 
-.hero-card{
+.hero-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr;
+    gap:18px;
+    margin-bottom:22px;
+}
+
+.hero-disease-card,
+.hero-side-card{
     background:var(--card);
     border-radius:18px;
     padding:22px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
     border:1px solid var(--border);
     box-shadow:var(--shadow);
-    margin-bottom:22px;
     transition:background .35s,border-color .35s,box-shadow .35s;
 }
 
-.hero-left{
+/* Disease card */
+
+.hero-disease-card{
+    background:linear-gradient(135deg,#0057ff,#0038c9);
+    border:none;
     display:flex;
     align-items:center;
     gap:16px;
+    border-left:6px solid #22e36d;
 }
 
-.success-icon{
+.hero-disease-card .success-icon{
     width:56px;
     height:56px;
     border-radius:50%;
@@ -166,56 +175,224 @@ header{
     display:flex;
     justify-content:center;
     align-items:center;
+    flex-shrink:0;
     box-shadow:0 10px 22px rgba(0,255,120,.25);
 }
 
-.success-icon i{
+.hero-disease-card .success-icon i{
     font-size:24px;
     color:white;
 }
 
-.hero-left h2{
+.hero-disease-card h2{
     font-size:24px;
     font-weight:700;
+    color:#ffffff;
     margin-bottom:4px;
 }
 
-.hero-left p{
-    color:var(--text-light);
+.hero-disease-card p{
+    color:rgba(255,255,255,.85);
     font-size:14px;
 }
 
+/* Shared side card label */
 
-/* ==========================================
-   CONFIDENCE CIRCLE
-========================================== */
+.hero-label{
+    display:block;
+    text-align:center;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+    color:var(--text-light);
+    margin-bottom:14px;
+}
 
-.hero-right{
+.hero-side-card{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
     text-align:center;
 }
 
-.confidence-circle{
-    width:92px;
-    height:92px;
+/* Confidence progress ring */
+
+.progress-ring{
+    --pct:0;
+    width:132px;
+    height:132px;
     border-radius:50%;
-    background:linear-gradient(135deg,#00b7ff,#0066ff);
+    background:conic-gradient(var(--accent) calc(var(--pct) * 3.6deg), var(--field) 0deg);
     display:flex;
-    justify-content:center;
     align-items:center;
-    margin:auto;
-    box-shadow:0 12px 26px rgba(0,140,255,.35);
+    justify-content:center;
+    transition:background .5s ease;
 }
 
-.confidence-circle span{
-    font-size:20px;
+.ring-inner{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    background:var(--card);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+.ring-inner strong{
+    font-size:22px;
     font-weight:700;
+    color:var(--text);
 }
 
-.hero-right small{
-    display:block;
-    margin-top:8px;
+.ring-inner span{
+    font-size:11px;
+    color:var(--text-light);
+    margin-top:2px;
+}
+
+.hero-note{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:16px;
+    padding:9px 14px;
+    border-radius:10px;
+    background:var(--field);
+    color:var(--text-light);
+    font-size:12px;
+}
+
+.hero-note i{
+    color:var(--accent);
+}
+
+/* Risk level card */
+
+.risk-body{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.risk-icon{
+    width:56px;
+    height:56px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    background:linear-gradient(135deg,var(--risk-color-light),var(--risk-color));
+    box-shadow:0 10px 22px rgba(0,0,0,.15);
+}
+
+.risk-icon i{
+    font-size:22px;
+    color:#ffffff;
+}
+
+.risk-body h3{
+    font-size:22px;
+    font-weight:700;
+    color:var(--risk-color);
+    text-align:left;
+}
+
+.risk-body span{
     font-size:12px;
     color:var(--text-light);
+}
+
+.risk-note{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-top:16px;
+    padding:12px 14px;
+    border-radius:12px;
+    background:var(--risk-bg);
+    border:1px solid var(--risk-border);
+    text-align:left;
+}
+
+.risk-note i{
+    color:var(--risk-color);
+    font-size:15px;
+    margin-top:2px;
+}
+
+.risk-note strong{
+    display:block;
+    color:var(--risk-color);
+    font-size:13px;
+    margin-bottom:2px;
+}
+
+.risk-note p{
+    color:var(--text-light);
+    font-size:12px;
+    line-height:1.5;
+}
+
+.risk-card{
+    --risk-color:#dc2626;
+    --risk-color-light:#f87171;
+    --risk-bg:rgba(220,38,38,.08);
+    --risk-border:rgba(220,38,38,.25);
+}
+
+.risk-card.risk-medium{
+    --risk-color:#d97706;
+    --risk-color-light:#fbbf24;
+    --risk-bg:rgba(217,119,6,.08);
+    --risk-border:rgba(217,119,6,.25);
+}
+
+.risk-card.risk-low{
+    --risk-color:#16a34a;
+    --risk-color-light:#4ade80;
+    --risk-bg:rgba(22,163,74,.08);
+    --risk-border:rgba(22,163,74,.25);
+}
+
+/* ==========================================
+   PATIENT INFO — ICON GRID
+========================================== */
+
+.info-grid-icons{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+}
+
+.info-item-icon{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:var(--field);
+    border-radius:12px;
+    padding:14px;
+    transition:background .35s;
+}
+
+.patient-card{
+    margin-bottom:18px;
+}
+
+.info-item-icon .info-icon{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    background:linear-gradient(135deg,#16c6ff,#246dff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:14px;
+    flex-shrink:0;
 }
 
 
@@ -674,14 +851,13 @@ header{
         grid-template-columns:1fr;
     }
 
-    .hero-card{
-        flex-direction:column;
-        gap:20px;
-        text-align:center;
+    .hero-grid{
+        grid-template-columns:1fr;
     }
 
-    .hero-left{
+    .hero-disease-card{
         flex-direction:column;
+        text-align:center;
     }
 
     .doctor-body{
@@ -690,6 +866,10 @@ header{
     }
 
     .info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .info-grid-icons{
         grid-template-columns:1fr;
     }
 
@@ -702,17 +882,31 @@ header{
         margin:16px auto;
     }
 
-    .hero-left h2{
+    .hero-disease-card h2{
         font-size:20px;
     }
 
-    .confidence-circle{
-        width:80px;
-        height:80px;
+    .progress-ring{
+        width:112px;
+        height:112px;
     }
 
-    .confidence-circle span{
+    .ring-inner{
+        width:84px;
+        height:84px;
+    }
+
+    .ring-inner strong{
         font-size:18px;
+    }
+
+    .risk-body{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .risk-body h3{
+        text-align:center;
     }
 
     .card-title h2{

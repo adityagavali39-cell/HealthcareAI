@@ -135,41 +135,41 @@ href="{{ url_for('static', filename='css/theme.css') }}">
 
 <section class="stats">
 
-    <div class="stat-card">
+    <div class="stat-card" data-target="100" data-suffix="+">
 
         <i class="fa-solid fa-user-doctor"></i>
 
-        <h2>100+</h2>
+        <h2>0</h2>
 
         <p>Doctors</p>
 
     </div>
 
-    <div class="stat-card">
+    <div class="stat-card" data-target="500" data-suffix="+">
 
         <i class="fa-solid fa-hospital"></i>
 
-        <h2>500+</h2>
+        <h2>0</h2>
 
         <p>Hospitals</p>
 
     </div>
 
-    <div class="stat-card">
+    <div class="stat-card" data-target="95" data-suffix="%">
 
         <i class="fa-solid fa-heart-circle-check"></i>
 
-        <h2>95%</h2>
+        <h2>0</h2>
 
         <p>Prediction Accuracy</p>
 
     </div>
 
-    <div class="stat-card">
+    <div class="stat-card" data-target="10000" data-suffix="+" data-compact="true">
 
         <i class="fa-solid fa-users"></i>
 
-        <h2>10K+</h2>
+        <h2>0</h2>
 
         <p>Users</p>
 
@@ -668,7 +668,7 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 </script>
-<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+<script src="{{ url_for('static', filename='js/count-up-scroll.js') }}"></script>
 
 </body>
 

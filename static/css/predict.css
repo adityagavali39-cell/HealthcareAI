@@ -404,6 +404,43 @@ body.dark-mode {
 }
 
 /* ==========================================
+   SYMPTOM TIP BANNER
+========================================== */
+
+.symptom-tip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: rgba(36, 200, 255, .08);
+    border: 1px solid rgba(36, 200, 255, .25);
+    color: var(--text-light);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.symptom-tip i {
+    color: var(--accent);
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+body.dark-mode .symptom-tip {
+    background: rgba(36, 200, 255, .1);
+    border-color: rgba(36, 200, 255, .2);
+}
+
+@media (max-width: 768px) {
+    .symptom-tip {
+        font-size: 13px;
+        padding: 12px 14px;
+    }
+}
+
+/* ==========================================
    RESPONSIVE
 ========================================== */
 
