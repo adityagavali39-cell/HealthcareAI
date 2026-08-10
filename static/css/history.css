@@ -140,14 +140,18 @@ box-shadow:0 10px 20px rgba(37,99,235,.3);
 
 }
 
-//* ==========================
+/* ==========================
    THEME TOGGLE BUTTON
 ========================== */
 
 .theme-toggle{
-    position: fixed;
-    top: 20px;
-    right: 25px;
+    position: fixed !important;
+    top: 20px !important;
+    right: 25px !important;
+    left: auto !important;
+    bottom: auto !important;
+    margin: 0 !important;
+    transform: none;
 
     width: 56px;
     height: 56px;
@@ -189,6 +193,16 @@ box-shadow:0 10px 20px rgba(37,99,235,.3);
 
     transform:scale(.95);
 
+}
+
+.theme-toggle #theme-btn{
+    all: unset;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .theme-toggle i{

@@ -59,8 +59,14 @@
                     <input
                         type="email"
                         name="email"
+                        id="email"
                         placeholder="Email Address"
                         required>
+
+                    <span class="error-message" id="email-error">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        Please enter a valid email address
+                    </span>
 
                 </div>
 
@@ -194,6 +200,7 @@
 
 </div>
 <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+<script src="{{ url_for('static', filename='js/register-validate.js') }}"></script>
 </body>
 
 </html>

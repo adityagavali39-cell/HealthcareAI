@@ -49,7 +49,18 @@ href="{{ url_for('static', filename='css/theme.css') }}">
  
         <h2>Welcome back</h2>
         <p class="subtitle">Log in to continue to your dashboard</p>
- 
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         <form action="{{ url_for('login') }}" method="POST" novalidate>
  
             <div class="input-box">
@@ -63,7 +74,7 @@ href="{{ url_for('static', filename='css/theme.css') }}">
                     required>
             </div>
  
-            <div class="input-box password-box">
+            <div class="input-box password-box" id="password-input-box">
                 <i class="fa-solid fa-lock icon-left"></i>
                 <input
                     type="password"
@@ -130,6 +141,15 @@ href="{{ url_for('static', filename='css/theme.css') }}">
         this.setAttribute("aria-pressed", String(isHidden));
         this.setAttribute("aria-label", isHidden ? "Hide password" : "Show password");
     });
+
+    // Highlight the password field red when the server returns a login error
+    const flashMessage = document.querySelector(".flash-message");
+    if (flashMessage) {
+        const passwordBox = document.getElementById("password-input-box");
+        if (passwordBox) {
+            passwordBox.classList.add("invalid");
+        }
+    }
  
    
 </script>

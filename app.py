@@ -63,35 +63,30 @@ oauth = OAuth(app)
 RESEND_API_KEY = os.getenv("RESEND_API_KEY")
 RESEND_FROM_EMAIL = os.getenv("RESEND_FROM_EMAIL", "onboarding@resend.dev")
 
-def safe_send_mail(msg, timeout=10):
+
+# ==========================================
+# Email Sending Configuration
+# ==========================================
+
+def safe_send_mail(msg):
     """
-    Sends email via the Resend HTTP API instead of raw SMTP.
-    Railway (and many hosts) block outbound SMTP ports, but a normal
-    HTTPS API call works fine. Returns True on success, False on failure.
+    Sends email using Flask-Mail / Gmail SMTP.
+    Returns True if email is sent successfully,
+    otherwise returns False.
     """
     try:
-        response = requests.post(
-            "https://api.resend.com/emails",
-            headers={
-                "Authorization": f"Bearer {RESEND_API_KEY}",
-                "Content-Type": "application/json"
-            },
-            json={
-                "from": RESEND_FROM_EMAIL,
-                "to": msg.recipients,
-                "subject": msg.subject,
-                "text": msg.body
-            },
-            timeout=timeout
-        )
-        if response.status_code in (200, 201):
-            return True
-        else:
-            print("Resend API error:", response.status_code, response.text)
-            return False
+        mail.send(msg)
+        print("Email sent successfully to:", msg.recipients)
+        return True
+
     except Exception as e:
         print("Mail send failed:", e)
         return False
+
+
+# ==========================================
+# Google OAuth Configuration
+# ==========================================
 
 google = oauth.register(
     name="google",
@@ -102,8 +97,14 @@ google = oauth.register(
         "scope": "openid email profile"
     }
 )
+
+
+# ==========================================
+# Flask Secret Key
+# ==========================================
+
 app.secret_key = os.getenv("SECRET_KEY")
-app.secret_key = "smart_healthcare_secret_key"
+
 
 # ==========================================
 # Load ML Models
@@ -431,9 +432,6 @@ def login():
         email = request.form["email"].strip()
         password = request.form["password"]
 
-        print("Email:", email)
-        print("Password:", password)
-
         conn = get_connection()
         cursor = conn.cursor()
 
@@ -443,32 +441,22 @@ def login():
         )
 
         user = cursor.fetchone()
-       
-        if user and check_password_hash(user["password"], password):
-
-         session["user_id"] = user["id"]
-         session["fullname"] = user["fullname"]
-
-         return redirect("/dashboard")
-
-        flash("Invalid Email or Password","danger")
-
-        print("User:", user)
 
         cursor.close()
         conn.close()
 
-        if user:
-            print("LOGIN SUCCESS")
+        if not user:
+            flash("No account found with this email.", "danger")
+            return redirect("/login")
 
-            session["user_id"] = user["id"]
-            session["fullname"] = user["fullname"]
+        if not check_password_hash(user["password"], password):
+            flash("Enter correct password.", "danger")
+            return redirect("/login")
 
-            return redirect("/dashboard")
+        session["user_id"] = user["id"]
+        session["fullname"] = user["fullname"]
 
-        else:
-            print("LOGIN FAILED")
-            flash("Invalid Email or Password", "danger")
+        return redirect("/dashboard")
 
     return render_template("login.html")
 @app.route("/forgot-password", methods=["GET", "POST"])
