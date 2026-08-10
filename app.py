@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session, url_for,fl
 from werkzeug.middleware.proxy_fix import ProxyFix
 import io
 import socket
+import requests
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
@@ -59,23 +60,38 @@ app.config["MAIL_DEFAULT_SENDER"] = os.getenv("MAIL_DEFAULT_SENDER")
 mail = Mail(app)
 oauth = OAuth(app)
 
+RESEND_API_KEY = os.getenv("RESEND_API_KEY")
+RESEND_FROM_EMAIL = os.getenv("RESEND_FROM_EMAIL", "onboarding@resend.dev")
+
 def safe_send_mail(msg, timeout=10):
     """
-    Sends email with a hard timeout so a blocked/slow SMTP port
-    (common on hosts like Railway) fails fast instead of hanging
-    until Gunicorn force-kills the worker (WORKER TIMEOUT crash).
-    Returns True on success, False on failure.
+    Sends email via the Resend HTTP API instead of raw SMTP.
+    Railway (and many hosts) block outbound SMTP ports, but a normal
+    HTTPS API call works fine. Returns True on success, False on failure.
     """
-    old_timeout = socket.getdefaulttimeout()
     try:
-        socket.setdefaulttimeout(timeout)
-        mail.send(msg)
-        return True
+        response = requests.post(
+            "https://api.resend.com/emails",
+            headers={
+                "Authorization": f"Bearer {RESEND_API_KEY}",
+                "Content-Type": "application/json"
+            },
+            json={
+                "from": RESEND_FROM_EMAIL,
+                "to": msg.recipients,
+                "subject": msg.subject,
+                "text": msg.body
+            },
+            timeout=timeout
+        )
+        if response.status_code in (200, 201):
+            return True
+        else:
+            print("Resend API error:", response.status_code, response.text)
+            return False
     except Exception as e:
         print("Mail send failed:", e)
         return False
-    finally:
-        socket.setdefaulttimeout(old_timeout)
 
 google = oauth.register(
     name="google",
