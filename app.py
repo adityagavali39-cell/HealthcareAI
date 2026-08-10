@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, session, url_for,flash, send_file
+from werkzeug.middleware.proxy_fix import ProxyFix
 import io
 import socket
 from reportlab.lib.pagesizes import A4
@@ -40,6 +41,7 @@ print("MAIL_SERVER:", os.getenv("MAIL_SERVER"))
 print("MAIL_PORT:", os.getenv("MAIL_PORT"))
 print("MAIL_USERNAME:", os.getenv("MAIL_USERNAME"))
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 app.secret_key = os.getenv("SECRET_KEY")
 
 # ===============================
