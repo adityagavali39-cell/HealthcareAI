@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for,flash, send_file
 import io
+import socket
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
@@ -22,8 +23,7 @@ from dotenv import load_dotenv
 from flask_mail import Mail, Message
 load_dotenv()
 import random
-from werkzeug.security import generate_password_hash, check_password_hash
-print(os.getenv("DATABASE_URL"))
+from werkzeug.security import check_password_hash
 from helper import (
     get_precautions,
     get_medicines,
@@ -56,6 +56,24 @@ app.config["MAIL_DEFAULT_SENDER"] = os.getenv("MAIL_DEFAULT_SENDER")
 
 mail = Mail(app)
 oauth = OAuth(app)
+
+def safe_send_mail(msg, timeout=10):
+    """
+    Sends email with a hard timeout so a blocked/slow SMTP port
+    (common on hosts like Railway) fails fast instead of hanging
+    until Gunicorn force-kills the worker (WORKER TIMEOUT crash).
+    Returns True on success, False on failure.
+    """
+    old_timeout = socket.getdefaulttimeout()
+    try:
+        socket.setdefaulttimeout(timeout)
+        mail.send(msg)
+        return True
+    except Exception as e:
+        print("Mail send failed:", e)
+        return False
+    finally:
+        socket.setdefaulttimeout(old_timeout)
 
 google = oauth.register(
     name="google",
@@ -298,7 +316,11 @@ Do not share this OTP with anyone.
 Thank You.
 """
 
-        mail.send(msg)
+        if not safe_send_mail(msg):
+            cursor.close()
+            conn.close()
+            flash("Could not send verification email right now. Please try again.", "danger")
+            return redirect("/register")
 
         cursor.close()
         conn.close()
@@ -479,7 +501,9 @@ Do not share this OTP with anyone.
 Smart Healthcare Assistant
 """
 
-        mail.send(msg)
+        if not safe_send_mail(msg):
+            flash("Could not send OTP email right now. Please try again.", "danger")
+            return redirect("/forgot-password")
 
         flash("OTP sent successfully.", "success")
 
@@ -1074,9 +1098,10 @@ Your Flask Mail configuration is working successfully.
 Smart Healthcare Assistant
 """
 
-    mail.send(msg)
-
-    return "Email Sent Successfully"        
+    if safe_send_mail(msg):
+        return "Email Sent Successfully"
+    else:
+        return "Email failed to send (SMTP unreachable/blocked). Check server logs.", 500
 # ==========================================
 # Run App
 # ==========================================
