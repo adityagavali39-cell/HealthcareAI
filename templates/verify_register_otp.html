@@ -1,146 +1,389 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Email Verification</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-    * {
-        box-sizing: border-box;
-    }
+    <title>Email Verification | Smart Healthcare Assistant</title>
 
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background: linear-gradient(135deg, #f5f7fb 0%, #eef2ff 100%);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    .box {
-        width: 100%;
-        max-width: 380px;
-        background: #ffffff;
-        padding: 40px 32px;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(13, 110, 253, 0.12);
-        text-align: center;
-    }
+        body {
+            min-height: 100vh;
 
-    .box h2 {
-        margin: 0 0 8px;
-        color: #1a1f36;
-        font-size: 24px;
-        font-weight: 700;
-    }
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-    .box p {
-        margin: 0 0 24px;
-        color: #6b7280;
-        font-size: 14px;
-        line-height: 1.5;
-    }
+            padding: 20px;
 
-    form {
-        text-align: left;
-    }
+            font-family: "Segoe UI", Arial, sans-serif;
 
-    label {
-        display: block;
-        font-size: 13px;
-        font-weight: 600;
-        color: #374151;
-        margin-bottom: 6px;
-    }
+            background: linear-gradient(
+                135deg,
+                #f3f6fa,
+                #e8eef5
+            );
+        }
 
-    input {
-        width: 100%;
-        padding: 12px 14px;
-        margin-bottom: 22px;
-        border: 1px solid #d1d5db;
-        border-radius: 8px;
-        font-size: 18px;
-        letter-spacing: 6px;
-        text-align: center;
-        color: #1a1f36;
-        transition: border-color 0.2s, box-shadow 0.2s;
-    }
+        /* Main Card */
+        .box {
+            width: 100%;
+            max-width: 390px;
 
-    input:focus {
-        outline: none;
-        border-color: #0d6efd;
-        box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
-    }
+            padding: 38px 32px;
 
-    input::placeholder {
-        letter-spacing: normal;
-        font-size: 14px;
-        color: #9ca3af;
-    }
+            background: #ffffff;
 
-    button {
-        width: 100%;
-        padding: 13px;
-        background: #0d6efd;
-        color: #ffffff;
-        border: none;
-        border-radius: 8px;
-        font-size: 15px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background 0.2s, transform 0.1s;
-    }
+            border-radius: 18px;
 
-    button:hover {
-        background: #0b5ed7;
-    }
+            box-shadow:
+                0 12px 35px rgba(0, 0, 0, 0.10);
 
-    button:active {
-        transform: scale(0.98);
-    }
+            text-align: center;
+        }
 
-    a {
-        display: block;
-        text-align: center;
-        margin-top: 18px;
-        color: #0d6efd;
-        font-size: 13px;
-        font-weight: 600;
-        text-decoration: none;
-    }
+        /* Icon */
+        .icon {
+            width: 62px;
+            height: 62px;
 
-    a:hover {
-        text-decoration: underline;
-    }
-</style>
+            margin: 0 auto 18px;
 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #e8f1ff;
+
+            font-size: 28px;
+        }
+
+        /* Heading */
+        .box h2 {
+            margin-bottom: 9px;
+
+            color: #1f2937;
+
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        /* Description */
+        .box p {
+            margin-bottom: 25px;
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+        /* Flash Messages */
+        .alert {
+            padding: 11px 13px;
+
+            margin-bottom: 18px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            text-align: left;
+        }
+
+        .alert-success {
+            background: #e8f7ee;
+            color: #18794e;
+            border: 1px solid #c7ead7;
+        }
+
+        .alert-danger {
+            background: #fdecec;
+            color: #b42318;
+            border: 1px solid #f5c6c6;
+        }
+
+        .alert-warning {
+            background: #fff8e1;
+            color: #8a6500;
+            border: 1px solid #f3df9b;
+        }
+
+        .alert-info {
+            background: #eaf6ff;
+            color: #1769aa;
+            border: 1px solid #c9e7f8;
+        }
+
+        /* Form */
+        form {
+            width: 100%;
+            text-align: left;
+        }
+
+        /* Label */
+        label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #374151;
+
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* OTP Input */
+        input {
+            width: 100%;
+
+            height: 52px;
+
+            padding: 0 14px;
+
+            margin-bottom: 18px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 9px;
+
+            background: #ffffff;
+
+            color: #1f2937;
+
+            font-size: 21px;
+
+            font-weight: 600;
+
+            letter-spacing: 7px;
+
+            text-align: center;
+
+            outline: none;
+
+            transition: 0.2s ease;
+        }
+
+        input::placeholder {
+            color: #9ca3af;
+
+            font-size: 13px;
+
+            font-weight: 400;
+
+            letter-spacing: normal;
+        }
+
+        input:focus {
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.10);
+        }
+
+        /* Verify Button */
+        button {
+            width: 100%;
+
+            height: 48px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #2563eb;
+
+            color: #ffffff;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 6px 15px rgba(37, 99, 235, 0.20);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.7;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+        /* Resend */
+        .resend {
+            display: block;
+
+            margin-top: 20px;
+
+            color: #2563eb;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            text-decoration: none;
+        }
+
+        .resend:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .box {
+                padding: 32px 24px;
+            }
+
+            .box h2 {
+                font-size: 23px;
+            }
+
+            input {
+                height: 50px;
+            }
+        }
+    </style>
 </head>
+
 
 <body>
 
-<div class="box">
-    <h2>Email Verification</h2>
-    <p>Enter the OTP sent to your email.</p>
+    <div class="box">
 
-    <form method="POST">
-        <label for="otp">OTP</label>
-        <input
-            type="text"
-            id="otp"
-            name="otp"
-            placeholder="Enter 6 Digit OTP"
-            maxlength="6"
-            inputmode="numeric"
-            required>
+        <div class="icon">
+            ✉️
+        </div>
 
-        <button type="submit">Verify Email</button>
-    </form>
+        <h2>Email Verification</h2>
 
-    <a href="{{ url_for('register') }}">Resend OTP</a>
-</div>
+        <p>
+            Enter the 6-digit OTP sent to your email address.
+        </p>
+
+
+        <!-- Flash Messages -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- OTP Form -->
+
+        <form method="POST"
+              action="{{ url_for('verify_register_otp') }}">
+
+            <label for="otp">
+                Verification Code
+            </label>
+
+            <input
+                type="text"
+                id="otp"
+                name="otp"
+                placeholder="Enter 6 Digit OTP"
+                maxlength="6"
+                minlength="6"
+                pattern="[0-9]{6}"
+                inputmode="numeric"
+                autocomplete="one-time-code"
+                required
+            >
+
+            <button type="submit" id="verifyBtn">
+                Verify Email
+            </button>
+
+        </form>
+
+
+        <!-- Resend OTP -->
+
+        <a href="{{ url_for('register') }}"
+           class="resend">
+            ← Resend OTP
+        </a>
+
+    </div>
+
+
+    <script>
+
+        const otpInput = document.getElementById("otp");
+        const form = document.querySelector("form");
+        const button = document.getElementById("verifyBtn");
+
+        // Allow numbers only
+        otpInput.addEventListener("input", function () {
+
+            this.value = this.value
+                .replace(/[^0-9]/g, "")
+                .slice(0, 6);
+
+        });
+
+
+        // Prevent multiple submissions
+        form.addEventListener("submit", function () {
+
+            if (otpInput.value.length !== 6) {
+                return;
+            }
+
+            button.disabled = true;
+            button.innerText = "Verifying...";
+
+        });
+
+    </script>
 
 </body>
+
 </html>
+```
