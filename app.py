@@ -17,6 +17,7 @@ from dotenv import load_dotenv
 import os
 from werkzeug.security import generate_password_hash
 import time
+from datetime import datetime
 from dotenv import load_dotenv
 from flask_mail import Mail, Message
 load_dotenv()
@@ -43,7 +44,7 @@ app.secret_key = os.getenv("SECRET_KEY")
 
 # ===============================
 # Flask Mail Configuration
-# ===============================def home():
+# ===============================
 
 app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER", "smtp.gmail.com")
 app.config["MAIL_PORT"] = int(os.getenv("MAIL_PORT", "587"))
@@ -802,8 +803,19 @@ def download_report():
         textColor=colors.HexColor("#2563eb")
     )
 
+    generated_style = ParagraphStyle(
+        "GeneratedOn",
+        parent=styles["Normal"],
+        textColor=colors.HexColor("#5b7186"),
+        fontSize=9
+    )
+
     elements.append(Paragraph("Healthcare AI", title_style))
     elements.append(Paragraph("AI Disease Prediction Report", styles["Heading3"]))
+    elements.append(Paragraph(
+        f"Generated on: {datetime.now().strftime('%d %b %Y, %I:%M %p')}",
+        generated_style
+    ))
     elements.append(Spacer(1, 16))
 
     elements.append(Paragraph(f"<b>Predicted Disease:</b> {disease}", styles["Normal"]))
@@ -851,11 +863,12 @@ def download_report():
     buffer.seek(0)
 
     safe_disease = "".join(c for c in disease if c.isalnum() or c in (" ", "_")).strip().replace(" ", "_")
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
     return send_file(
         buffer,
         as_attachment=True,
-        download_name=f"health_report_{safe_disease}.pdf",
+        download_name=f"health_report_{safe_disease}_{timestamp}.pdf",
         mimetype="application/pdf"
     )
 

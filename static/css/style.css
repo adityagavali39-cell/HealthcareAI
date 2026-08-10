@@ -127,6 +127,15 @@ body.dark-mode ::-webkit-scrollbar-track{
                 NAVBAR
 ==================================================*/
 
+#features,
+#process,
+#about,
+#contact{
+
+    scroll-margin-top:100px;
+
+}
+
 .navbar{
 
     position:fixed;
@@ -673,7 +682,7 @@ transform:translateY(0);
 
 .features{
 
-    padding:100px 8%;
+    padding:80px 8%;
 
 }
 
@@ -829,7 +838,7 @@ justify-content:center;
 
 .process{
 
-    padding:110px 8%;
+    padding:80px 8%;
 
 }
 
@@ -962,7 +971,7 @@ justify-content:center;
 
 .about{
 
-    padding:110px 8%;
+    padding:80px 8% 90px;
 
 }
 

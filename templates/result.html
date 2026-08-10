@@ -115,7 +115,7 @@ href="{{ url_for('static', filename='css/theme.css') }}">
         </section>
 
         <!-- Risk Level Card -->
-        <section class="hero-side-card risk-card risk-{{ severity|lower }}">
+        <section class="hero-side-card risk-card risk-{{ 'medium' if severity|lower in ['medium','moderate'] else severity|lower }}">
 
             <span class="hero-label">Risk Level</span>
 
@@ -149,7 +149,7 @@ href="{{ url_for('static', filename='css/theme.css') }}">
 
                     <p>Consult a specialist for proper evaluation and treatment.</p>
 
-                    {% elif severity|lower == 'medium' %}
+                    {% elif severity|lower in ['medium', 'moderate'] %}
 
                     <strong>Monitor Closely</strong>
 

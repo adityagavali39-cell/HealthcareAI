@@ -159,29 +159,54 @@ header{
 /* Disease card */
 
 .hero-disease-card{
-    background:linear-gradient(135deg,#0057ff,#0038c9);
-    border:none;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(135deg,#0b3fd6,#0a2ea3);
+    border:1px solid rgba(255,255,255,.08);
     display:flex;
     align-items:center;
-    gap:16px;
-    border-left:6px solid #22e36d;
+    gap:18px;
+}
+
+.hero-disease-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:3px;
+    background:linear-gradient(90deg,#22e36d,#00b7ff);
+}
+
+.hero-disease-card::after{
+    content:"";
+    position:absolute;
+    right:-40px;
+    bottom:-40px;
+    width:160px;
+    height:160px;
+    border-radius:50%;
+    background:rgba(255,255,255,.05);
 }
 
 .hero-disease-card .success-icon{
-    width:56px;
-    height:56px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#22e36d,#00b050);
+    width:52px;
+    height:52px;
+    border-radius:14px;
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.2);
     display:flex;
     justify-content:center;
     align-items:center;
     flex-shrink:0;
-    box-shadow:0 10px 22px rgba(0,255,120,.25);
+    box-shadow:none;
+    position:relative;
+    z-index:1;
 }
 
 .hero-disease-card .success-icon i{
-    font-size:24px;
-    color:white;
+    font-size:22px;
+    color:#22e36d;
 }
 
 .hero-disease-card h2{
@@ -189,11 +214,16 @@ header{
     font-weight:700;
     color:#ffffff;
     margin-bottom:4px;
+    position:relative;
+    z-index:1;
 }
 
 .hero-disease-card p{
-    color:rgba(255,255,255,.85);
-    font-size:14px;
+    color:rgba(255,255,255,.75);
+    font-size:13px;
+    letter-spacing:.2px;
+    position:relative;
+    z-index:1;
 }
 
 /* Shared side card label */

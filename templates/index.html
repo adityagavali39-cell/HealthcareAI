@@ -473,7 +473,7 @@ href="{{ url_for('static', filename='css/theme.css') }}">
                 provides personalized healthcare recommendations.
             </p>
 
-            <div class="contact-info">
+            <div class="contact-info" id="contact">
 
                 <p>
                     <i class="fa-solid fa-envelope"></i>
@@ -627,15 +627,23 @@ document.addEventListener("DOMContentLoaded", function(){
     const themeBtn = document.getElementById("theme-btn");
 
     // Load Saved Theme
-    if(localStorage.getItem("theme")=="light"){
+    try{
 
-        document.body.classList.add("light");
+        if(localStorage.getItem("theme")=="dark"){
 
-        if(themeBtn){
+            document.body.classList.add("dark-mode");
 
-            themeBtn.innerHTML='<i class="fa-solid fa-sun"></i>';
+            if(themeBtn){
+
+                themeBtn.innerHTML='<i class="fa-solid fa-sun"></i>';
+
+            }
 
         }
+
+    }catch(err){
+
+        console.warn("Theme: localStorage not available, using default theme.");
 
     }
 
@@ -643,23 +651,23 @@ document.addEventListener("DOMContentLoaded", function(){
 
         themeBtn.addEventListener("click",function(){
 
-            document.body.classList.toggle("light");
+            document.body.classList.toggle("dark-mode");
 
-            if(document.body.classList.contains("light")){
+            const isDark = document.body.classList.contains("dark-mode");
 
-                localStorage.setItem("theme","light");
+            try{
 
-                themeBtn.innerHTML='<i class="fa-solid fa-sun"></i>';
+                localStorage.setItem("theme", isDark ? "dark" : "light");
 
-            }
+            }catch(err){
 
-            else{
-
-                localStorage.setItem("theme","dark");
-
-                themeBtn.innerHTML='<i class="fa-solid fa-moon"></i>';
+                console.warn("Theme: could not save preference.");
 
             }
+
+            themeBtn.innerHTML = isDark
+                ? '<i class="fa-solid fa-sun"></i>'
+                : '<i class="fa-solid fa-moon"></i>';
 
         });
 
