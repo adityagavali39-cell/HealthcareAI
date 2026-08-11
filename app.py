@@ -45,23 +45,22 @@ app = Flask(__name__)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 app.secret_key = os.getenv("SECRET_KEY")
 
-# ===============================
-# Flask Mail Configuration
-# ===============================
+# ==========================================
+# Email Configuration - Resend
+# ==========================================
 
-app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER", "smtp.gmail.com")
-app.config["MAIL_PORT"] = int(os.getenv("MAIL_PORT", "587"))
-app.config["MAIL_USE_TLS"] = os.getenv("MAIL_USE_TLS", "True") == "True"
-app.config["MAIL_USE_SSL"] = os.getenv("MAIL_USE_SSL", "False") == "True"
-app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
-app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
-app.config["MAIL_DEFAULT_SENDER"] = os.getenv("MAIL_DEFAULT_SENDER")
-
-mail = Mail(app)
-oauth = OAuth(app)
-
+# Resend uses HTTPS API, so SMTP settings are not required.
 RESEND_API_KEY = os.getenv("RESEND_API_KEY")
 RESEND_FROM_EMAIL = os.getenv("RESEND_FROM_EMAIL", "onboarding@resend.dev")
+
+if not RESEND_API_KEY:
+    print("WARNING: RESEND_API_KEY is not set!")
+
+print("RESEND_FROM_EMAIL:", RESEND_FROM_EMAIL)
+
+# Flask-Mail Message is still used to keep the existing email code simple.
+mail = Mail(app)
+oauth = OAuth(app)
 
 
 # ==========================================
@@ -70,17 +69,52 @@ RESEND_FROM_EMAIL = os.getenv("RESEND_FROM_EMAIL", "onboarding@resend.dev")
 
 def safe_send_mail(msg):
     """
-    Sends email using Flask-Mail / Gmail SMTP.
-    Returns True if email is sent successfully,
-    otherwise returns False.
+    Send an email using the Resend HTTPS API.
+
+    This avoids direct SMTP connections, which can be blocked on Railway.
+    The existing Flask-Mail Message object is accepted so the rest of the
+    application does not need to change.
     """
     try:
-        mail.send(msg)
-        print("Email sent successfully to:", msg.recipients)
-        return True
+        if not RESEND_API_KEY:
+            print("ERROR: RESEND_API_KEY is missing.")
+            return False
+
+        response = requests.post(
+         "https://api.resend.com/emails",
+          headers={
+         "Authorization": f"Bearer {RESEND_API_KEY}",
+         "Content-Type": "application/json"
+          },
+          json={
+          "from": RESEND_FROM_EMAIL,
+          "to": msg.recipients,
+          "subject": msg.subject,
+         "text": msg.body
+          },
+          timeout=15
+      )
+
+        print("Resend status:", response.status_code)
+        print("Resend response:", response.text)
+
+        if response.status_code in (200, 201):
+            print("Email sent successfully to:", msg.recipients)
+            return True
+
+        print("Resend email failed:", response.status_code, response.text)
+        return False
+
+    except requests.exceptions.Timeout:
+        print("Resend request timed out.")
+        return False
+
+    except requests.exceptions.RequestException as e:
+        print("Resend request error:", e)
+        return False
 
     except Exception as e:
-        print("Mail send failed:", e)
+        print("Email sending error:", e)
         return False
 
 
@@ -315,7 +349,7 @@ def register():
         # Send Email
         msg = Message(
             subject="Verify Your Email",
-            sender=app.config["MAIL_USERNAME"],
+            sender=RESEND_FROM_EMAIL,
             recipients=[email]
         )
 
@@ -491,7 +525,7 @@ def forgot_password():
 
         msg = Message(
             subject="Password Reset OTP",
-            sender=app.config["MAIL_USERNAME"],
+            sender=RESEND_FROM_EMAIL,
             recipients=[email]
         )
 
@@ -1087,10 +1121,9 @@ def authorize():
         return str(e)
 @app.route("/test-mail")
 def test_mail():
-
     msg = Message(
         subject="Smart Healthcare Assistant",
-        sender=app.config["MAIL_USERNAME"],
+        sender=RESEND_FROM_EMAIL,
         recipients=["healthcare0ai@gmail.com"]
     )
 
@@ -1099,15 +1132,15 @@ Hello,
 
 Congratulations 🎉
 
-Your Flask Mail configuration is working successfully.
+Your Resend email configuration is working successfully.
 
 Smart Healthcare Assistant
 """
 
     if safe_send_mail(msg):
         return "Email Sent Successfully"
-    else:
-        return "Email failed to send (SMTP unreachable/blocked). Check server logs.", 500
+
+    return "Email failed to send. Check Railway logs.", 500
 # ==========================================
 # Run App
 # ==========================================
