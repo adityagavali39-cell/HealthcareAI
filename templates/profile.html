@@ -10,80 +10,282 @@
 href="{{ url_for('static', filename='css/profile.css') }}">
 
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
 <link rel="stylesheet"
 href="{{ url_for('static', filename='css/theme.css') }}">
+
+<style>
+    .edit-form {
+        display: none;
+    }
+
+    .profile-card.editing .view-mode {
+        display: none;
+    }
+
+    .profile-card.editing .edit-form {
+        display: block;
+    }
+
+    .edit-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 22px;
+    }
+
+    .edit-field {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .edit-field label {
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .edit-field input,
+    .edit-field select {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 14px;
+        border: 1px solid #d5dce5;
+        border-radius: 10px;
+        font: inherit;
+        background: white;
+    }
+
+    .edit-field input:focus,
+    .edit-field select:focus {
+        outline: none;
+        border-color: #2563eb;
+    }
+
+    .edit-buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 24px;
+    }
+
+    .btn-save,
+    .btn-cancel {
+        border: 0;
+        cursor: pointer;
+        padding: 11px 18px;
+        border-radius: 9px;
+        font: inherit;
+        font-weight: 600;
+    }
+
+    .btn-save {
+        background: #2563eb;
+        color: white;
+    }
+
+    .btn-cancel {
+        background: #e5e7eb;
+        color: #111827;
+    }
+
+    .profile-message {
+        margin: 15px 0;
+        padding: 10px 14px;
+        border-radius: 9px;
+        font-size: 14px;
+    }
+
+    .profile-message.success {
+        background: #dcfce7;
+        color: #166534;
+    }
+
+    .profile-message.danger {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    @media (max-width: 650px) {
+        .edit-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
 </head>
 
 <body>
+
 <div class="theme-toggle">
     <button id="theme-btn">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
     </button>
 </div>
+
 <div class="page">
 
-  <div class="profile-card">
+  <div class="profile-card" id="profileCard">
 
     <div class="card-header">
-      <div class="avatar">{{ user["fullname"][0]|upper }}</div>
+      <div class="avatar" id="avatar">{{ user["fullname"][0]|upper }}</div>
       <div class="header-text">
-        <h1>{{ user["fullname"] }}</h1>
+        <h1 id="profile-name">{{ user["fullname"] }}</h1>
         <p class="subtitle">{{ user["email"] }}</p>
       </div>
     </div>
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="profile-message {{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     <div class="divider"></div>
 
-    <div class="info-grid">
+    <!-- VIEW MODE -->
+    <div class="view-mode">
+      <div class="info-grid">
 
-      <div class="info-item">
-        <span class="info-label">Full Name</span>
-        <span class="info-value">{{ user["fullname"] }}</span>
+        <div class="info-item">
+          <span class="info-label">Full Name</span>
+          <span class="info-value">{{ user["fullname"] }}</span>
+        </div>
+
+        <div class="info-item">
+          <span class="info-label">Email</span>
+          <span class="info-value">{{ user["email"] }}</span>
+        </div>
+
+        <div class="info-item">
+          <span class="info-label">Age</span>
+          <span class="info-value">{{ user["age"] }} yrs</span>
+        </div>
+
+        <div class="info-item">
+          <span class="info-label">Gender</span>
+          <span class="info-value">{{ user["gender"] }}</span>
+        </div>
+
+        <div class="info-item">
+          <span class="info-label">Weight</span>
+          <span class="info-value">{{ user["weight"] }} kg</span>
+        </div>
+
+        <div class="info-item">
+          <span class="info-label">Blood Group</span>
+          <span class="badge">{{ user["blood_group"] }}</span>
+        </div>
+
       </div>
 
-      <div class="info-item">
-        <span class="info-label">Email</span>
-        <span class="info-value">{{ user["email"] }}</span>
-      </div>
-
-      <div class="info-item">
-        <span class="info-label">Age</span>
-        <span class="info-value">{{ user["age"] }} yrs</span>
-      </div>
-
-      <div class="info-item">
-        <span class="info-label">Gender</span>
-        <span class="info-value">{{ user["gender"] }}</span>
-      </div>
-
-      <div class="info-item">
-        <span class="info-label">Weight</span>
-        <span class="info-value">{{ user["weight"] }} kg</span>
-      </div>
-
-      <div class="info-item">
-        <span class="info-label">Blood Group</span>
-        <span class="badge">{{ user["blood_group"] }}</span>
-      </div>
-
-    </div>
-
-    <div class="action-row">
-      <a href="/register"    class="action-link">
-        <button class="btn-outline">Edit Profile</button>
-      </a>
-      <a href="/dashboard" class="action-link">
-        <button class="btn-primary">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 18l-6-6 6-6"/></svg>
-          Back to Dashboard
+      <div class="action-row">
+        <button type="button" class="btn-outline" id="edit-btn">
+          Edit Profile
         </button>
-      </a>
+
+        <a href="/dashboard" class="action-link">
+          <button type="button" class="btn-primary">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                 stroke="currentColor" stroke-width="2.4"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5"/>
+              <path d="M11 18l-6-6 6-6"/>
+            </svg>
+            Back to Dashboard
+          </button>
+        </a>
+      </div>
     </div>
+
+    <!-- EDIT MODE: same page -->
+    <form class="edit-form" action="/profile" method="POST">
+
+      <div class="edit-grid">
+
+        <div class="edit-field">
+          <label for="fullname">Full Name</label>
+          <input type="text" id="fullname" name="fullname"
+                 value="{{ user['fullname'] }}" required>
+        </div>
+
+        <div class="edit-field">
+          <label>Email</label>
+          <input type="email" value="{{ user['email'] }}" disabled>
+        </div>
+
+        <div class="edit-field">
+          <label for="age">Age</label>
+          <input type="number" id="age" name="age"
+                 value="{{ user['age'] }}" required>
+        </div>
+
+        <div class="edit-field">
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender" required>
+            <option value="Male" {% if user['gender'] == 'Male' %}selected{% endif %}>Male</option>
+            <option value="Female" {% if user['gender'] == 'Female' %}selected{% endif %}>Female</option>
+            <option value="Other" {% if user['gender'] == 'Other' %}selected{% endif %}>Other</option>
+          </select>
+        </div>
+
+        <div class="edit-field">
+          <label for="weight">Weight (kg)</label>
+          <input type="number" id="weight" name="weight"
+                 value="{{ user['weight'] }}" step="any" required>
+        </div>
+
+        <div class="edit-field">
+          <label for="blood_group">Blood Group</label>
+          <select id="blood_group" name="blood_group" required>
+            <option value="A+" {% if user['blood_group'] == 'A+' %}selected{% endif %}>A+</option>
+            <option value="A-" {% if user['blood_group'] == 'A-' %}selected{% endif %}>A-</option>
+            <option value="B+" {% if user['blood_group'] == 'B+' %}selected{% endif %}>B+</option>
+            <option value="B-" {% if user['blood_group'] == 'B-' %}selected{% endif %}>B-</option>
+            <option value="AB+" {% if user['blood_group'] == 'AB+' %}selected{% endif %}>AB+</option>
+            <option value="AB-" {% if user['blood_group'] == 'AB-' %}selected{% endif %}>AB-</option>
+            <option value="O+" {% if user['blood_group'] == 'O+' %}selected{% endif %}>O+</option>
+            <option value="O-" {% if user['blood_group'] == 'O-' %}selected{% endif %}>O-</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="edit-buttons">
+        <button type="submit" class="btn-save">
+          Save Edit
+        </button>
+
+        <button type="button" class="btn-cancel" id="cancel-btn">
+          Cancel
+        </button>
+      </div>
+
+    </form>
 
   </div>
 
 </div>
-<script src="{{ url_for('static', filename='js/theme.js') }}?v=3"></script>
-</body>
 
+<script>
+const profileCard = document.getElementById("profileCard");
+const editBtn = document.getElementById("edit-btn");
+const cancelBtn = document.getElementById("cancel-btn");
+
+editBtn.addEventListener("click", function () {
+    profileCard.classList.add("editing");
+});
+
+cancelBtn.addEventListener("click", function () {
+    profileCard.classList.remove("editing");
+});
+</script>
+
+<script src="{{ url_for('static', filename='js/theme.js') }}?v=3"></script>
+
+</body>
 </html>

@@ -303,159 +303,78 @@ def register():
         fullname = request.form["fullname"].strip()
         email = request.form["email"].strip().lower()
         password = request.form["password"]
-
-        hashed_password = generate_password_hash(password)
+        confirm_password = request.form["confirm_password"]
 
         age = request.form["age"]
         gender = request.form["gender"]
         weight = request.form["weight"]
         blood_group = request.form["blood_group"]
 
-        conn = get_connection()
-        cursor = conn.cursor()
-
-        # Check if email already exists
-        cursor.execute(
-            "SELECT id FROM users WHERE email=%s",
-            (email,)
-        )
-
-        user = cursor.fetchone()
-
-        if user:
-            cursor.close()
-            conn.close()
-
-            flash("Email is already registered.", "danger")
+        # Check minimum password length
+        if len(password) < 8:
+            flash("Password must be at least 8 characters long.", "danger")
             return redirect("/register")
 
-        # Save data in session
-        session["register_data"] = {
-            "fullname": fullname,
-            "email": email,
-            "password": hashed_password,
-            "age": age,
-            "gender": gender,
-            "weight": weight,
-            "blood_group": blood_group
-        }
-
-        # Generate OTP
-        otp = str(random.randint(100000, 999999))
-
-        session["register_otp"] = otp
-        session["register_otp_time"] = time.time()
-
-        # Send Email
-        msg = Message(
-            subject="Verify Your Email",
-            sender=RESEND_FROM_EMAIL,
-            recipients=[email]
-        )
-
-        msg.body = f"""
-Hello {fullname},
-
-Welcome to Smart Healthcare Assistant.
-
-Your Email Verification OTP is:
-
-{otp}
-
-This OTP is valid for 5 minutes.
-
-Do not share this OTP with anyone.
-
-Thank You.
-"""
-
-        if not safe_send_mail(msg):
-            cursor.close()
-            conn.close()
-            flash("Could not send verification email right now. Please try again.", "danger")
+        # Check password confirmation
+        if password != confirm_password:
+            flash("Password and Confirm Password do not match.", "danger")
             return redirect("/register")
-
-        cursor.close()
-        conn.close()
-
-        flash("OTP has been sent to your email.", "success")
-
-        return redirect("/verify-register-otp")
-
-    return render_template("register.html")
-@app.route("/verify-register-otp", methods=["GET", "POST"])
-def verify_register_otp():
-
-    if "register_data" not in session:
-        flash("Registration session expired.", "danger")
-        return redirect("/register")
-
-    if request.method == "POST":
-
-        otp = request.form["otp"]
-
-        # OTP Expiry (5 minutes)
-        if time.time() - session.get("register_otp_time", 0) > 300:
-
-            session.pop("register_data", None)
-            session.pop("register_otp", None)
-            session.pop("register_otp_time", None)
-
-            flash("OTP Expired. Please register again.", "danger")
-            return redirect("/register")
-
-        # OTP Check
-        if otp != session.get("register_otp"):
-
-            flash("Invalid OTP.", "danger")
-            return redirect("/verify-register-otp")
-
-        data = session["register_data"]
 
         conn = get_connection()
         cursor = conn.cursor()
 
         try:
+            # Check if email already exists
+            cursor.execute(
+                "SELECT id FROM users WHERE email=%s",
+                (email,)
+            )
 
-            cursor.execute("""
+            user = cursor.fetchone()
+
+            if user:
+                flash("This email is already registered. Please use another email or login.", "danger")
+                return redirect("/register")
+
+            # Hash password
+            hashed_password = generate_password_hash(password)
+
+            # Register user directly - NO OTP verification
+            cursor.execute(
+                """
                 INSERT INTO users
-                (fullname,email,password,age,gender,weight,blood_group)
-                VALUES (%s,%s,%s,%s,%s,%s,%s)
-            """,
-            (
-                data["fullname"],
-                data["email"],
-                data["password"],
-                data["age"],
-                data["gender"],
-                data["weight"],
-                data["blood_group"]
-            ))
+                (fullname, email, password, age, gender, weight, blood_group)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                """,
+                (
+                    fullname,
+                    email,
+                    hashed_password,
+                    age,
+                    gender,
+                    weight,
+                    blood_group
+                )
+            )
 
             conn.commit()
 
-            session.pop("register_data", None)
-            session.pop("register_otp", None)
-            session.pop("register_otp_time", None)
-
-            flash("Registration Successful. Please Login.", "success")
-
+            # Registration successful
+            flash("Registration Successful! Please Login.", "success")
             return redirect("/login")
 
         except Exception as e:
-
             conn.rollback()
-
-            print(e)
-
-            flash("Registration Failed.", "danger")
+            print("Registration Error:", e)
+            flash("Registration Failed. Please try again.", "danger")
+            return redirect("/register")
 
         finally:
-
             cursor.close()
             conn.close()
 
-    return render_template("verify_register_otp.html")
+    return render_template("register.html")
+
 
 #login route
 @app.route("/login", methods=["GET", "POST"])
@@ -498,117 +417,87 @@ def forgot_password():
 
     if request.method == "POST":
 
-        email = request.form["email"].strip()
+        email = request.form["email"].strip().lower()
+        weight = request.form["weight"].strip()
+        blood_group = request.form["blood_group"].strip()
+        gender = request.form["gender"].strip()
+        new_password = request.form["password"]
+        confirm_password = request.form["confirm_password"]
 
-        conn = get_connection()
-        cursor = conn.cursor()
-
-        cursor.execute(
-            "SELECT * FROM users WHERE email=%s",
-            (email,)
-        )
-
-        user = cursor.fetchone()
-
-        cursor.close()
-        conn.close()
-
-        if not user:
-            flash("Email not found.", "danger")
+        # Check password confirmation
+        if new_password != confirm_password:
+            flash("New password and confirm password do not match.", "danger")
             return redirect("/forgot-password")
 
-        otp = str(random.randint(100000, 999999))
-
-        session["otp"] = otp
-        session["reset_email"] = email
-        session["otp_time"] = time.time()
-
-        msg = Message(
-            subject="Password Reset OTP",
-            sender=RESEND_FROM_EMAIL,
-            recipients=[email]
-        )
-
-        msg.body = f"""
-Hello,
-
-Your OTP for password reset is:
-
-{otp}
-
-Do not share this OTP with anyone.
-
-Smart Healthcare Assistant
-"""
-
-        if not safe_send_mail(msg):
-            flash("Could not send OTP email right now. Please try again.", "danger")
-            return redirect("/forgot-password")
-
-        flash("OTP sent successfully.", "success")
-
-        return redirect("/verify-otp")
-
-    return render_template("forgot_password.html")
-@app.route("/verify-otp", methods=["GET", "POST"])
-def verify_otp():
-
-    if request.method == "POST":
-
-        otp = request.form["otp"]
-        if time.time() - session.get("otp_time", 0) > 300:
-
-            flash("OTP Expired. Please request a new OTP.", "danger")
-
-            session.pop("otp", None)
-            session.pop("otp_time", None)
-
-            return redirect("/forgot-password")
-
-        if otp == session.get("otp"):
-
-            return redirect("/reset-password")
-
-        flash("Invalid OTP", "danger")
-
-    return render_template("verify_otp.html")
-@app.route("/reset-password", methods=["GET", "POST"])
-def reset_password():
-
-    if request.method == "POST":
-
-        password = generate_password_hash(
-         request.form["password"]
-       )
-
-        email = session.get("reset_email")
-
+        # Find user and verify the registration details
         conn = get_connection()
         cursor = conn.cursor()
 
         cursor.execute(
             """
-            UPDATE users
-            SET password=%s
+            SELECT id, email, weight, blood_group, gender
+            FROM users
             WHERE email=%s
             """,
-            (password, email)
+            (email,)
+        )
+
+        user = cursor.fetchone()
+
+        if not user:
+            cursor.close()
+            conn.close()
+            flash("Email not found.", "danger")
+            return redirect("/forgot-password")
+
+        # Compare email + weight + blood group + gender
+        db_weight = "" if user["weight"] is None else str(user["weight"]).strip()
+        db_blood_group = "" if user["blood_group"] is None else str(user["blood_group"]).strip()
+        db_gender = "" if user["gender"] is None else str(user["gender"]).strip()
+
+        # Weight can come from PostgreSQL as 60.0 while the form sends 60.
+        # Compare numeric values so both representations are accepted.
+        try:
+            weight_matches = float(db_weight) == float(weight)
+        except (ValueError, TypeError):
+            weight_matches = db_weight == weight
+
+        if (
+            not weight_matches
+            or db_blood_group.casefold() != blood_group.casefold()
+            or db_gender.casefold() != gender.casefold()
+        ):
+            cursor.close()
+            conn.close()
+            flash("Verification details do not match your registered information.", "danger")
+            return redirect("/forgot-password")
+
+        # Update password
+        hashed_password = generate_password_hash(new_password)
+
+        cursor.execute(
+            """
+            UPDATE users
+            SET password=%s
+            WHERE id=%s
+            """,
+            (hashed_password, user["id"])
         )
 
         conn.commit()
-
         cursor.close()
         conn.close()
 
-        session.pop("otp", None)
-        session.pop("reset_email", None)
-        session.pop("otp_time", None)
-
-        flash("Password Updated Successfully", "success")
-
+        flash("Password reset successfully. Please login with your new password.", "success")
         return redirect("/login")
 
-    return render_template("reset_password.html")
+    return render_template("forgot_password.html")
+
+
+# ==========================================
+# Logout
+# ==========================================
+
 # ==========================================
 # Logout
 # ==========================================
@@ -972,29 +861,104 @@ def history():
 # Profile
 # ==========================================
 
-@app.route("/profile")
+@app.route("/profile", methods=["GET", "POST"])
 def profile():
 
     if "user_id" not in session:
         return redirect("/login")
 
+    if request.method == "POST":
+
+        fullname = request.form.get("fullname", "").strip()
+        age = request.form.get("age", "").strip()
+        gender = request.form.get("gender", "").strip()
+        weight = request.form.get("weight", "").strip()
+        blood_group = request.form.get("blood_group", "").strip()
+
+        if not fullname or not age or not gender or not weight or not blood_group:
+            flash("Please fill all profile fields.", "danger")
+            return redirect("/profile")
+
+        conn = None
+        cursor = None
+
+        try:
+            conn = get_connection()
+            cursor = conn.cursor()
+
+            # Update the currently logged-in user's record.
+            cursor.execute(
+                """
+                UPDATE users
+                SET fullname = %s,
+                    age = %s,
+                    gender = %s,
+                    weight = %s,
+                    blood_group = %s
+                WHERE id = %s
+                """,
+                (
+                    fullname,
+                    age,
+                    gender,
+                    weight,
+                    blood_group,
+                    session["user_id"]
+                )
+            )
+
+            # Make sure PostgreSQL actually updated a row.
+            if cursor.rowcount != 1:
+                conn.rollback()
+                flash("Profile update failed: user record was not found.", "danger")
+                return redirect("/profile")
+
+            # IMPORTANT: permanently save the changes to PostgreSQL.
+            conn.commit()
+
+            # Update the session name too.
+            session["fullname"] = fullname
+
+            flash("Profile updated successfully.", "success")
+
+        except Exception as e:
+            if conn:
+                conn.rollback()
+            print("PROFILE UPDATE ERROR:", repr(e))
+            flash("Profile update failed. Please try again.", "danger")
+
+        finally:
+            if cursor:
+                cursor.close()
+            if conn:
+                conn.close()
+
+        return redirect("/profile")
+
+    # GET: load the latest values directly from the database.
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute("""
-      SELECT * FROM users
-      WHERE id=%s
-    """, (session["user_id"],))
+    cursor.execute(
+        """
+        SELECT *
+        FROM users
+        WHERE id = %s
+        """,
+        (session["user_id"],)
+    )
 
     user = cursor.fetchone()
 
     cursor.close()
     conn.close()
 
-    
+    if not user:
+        session.clear()
+        flash("User account not found.", "danger")
+        return redirect("/login")
 
     return render_template("profile.html", user=user)
-
 
 
 # ============================
